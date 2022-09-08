@@ -35,6 +35,21 @@ def get_basic_lem_auth():
 
     return basic_lem_auth
 
+def get_lem_user():
+    lem_user = os.environ.get("LEM_USER")
+
+    if not lem_user:
+        raise Exception("Missing LEM_USER in .env")
+
+    return lem_user
+
+def get_lem_pass():
+    lem_pass = os.environ.get("LEM_PASS")
+
+    if not lem_pass:
+        raise Exception("Missing LEM_PASS in .env")
+
+    return lem_pass
 
 def get_adyen_hmac_key():
     adyen_hmac_key = os.environ.get("ADYEN_HMAC_KEY")

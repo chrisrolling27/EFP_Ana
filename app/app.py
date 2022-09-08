@@ -3,7 +3,7 @@ import logging
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, abort
 
-from main.legalEntities import legal_entities
+from main.legalEntities import legal_entity
 from main.config import *
 
 
@@ -25,52 +25,21 @@ def create_app():
     def holders():
         return render_template('holders.html')
 
-    @app.route('/api/getPaymentLinks', methods=['POST', 'GET'])
-    def get_payment_links():
-        request_data = request.get_json()
-        locale_data = request_data
-        return adyen_payment_links(locale_data)
+    @app.route('/ledata', methods=['POST'])
+    def legal_entities():
+        if request.method == 'POST':
+            legalName = request.form['legalName']
+            regNumber = request.form['regNumber']
+            vatNumber = request.form['vatNumber']
+            orgType = request.form['orgType']
+            city = request.form['city']
+            country = request.form['country']
+            postalCode = request.form['postalCode']
+            stateProv = request.form['stateProv']
+            street = request.form['street']
+        return legal_entity(legalName, regNumber, vatNumber, orgType, city, country, postalCode, stateProv, street)
+        # return render_template('ledata.html')
 
-    @app.route('/api/getPaymentMethods', methods=['GET', 'POST'])
-    def get_payment_methods():
-        request_data = request.get_json()
-        # print (request_data)
-        locale_data = request_data
-        return adyen_payment_methods(locale_data)
-
-    @app.route('/api/amazonPaymentMethods', methods=['GET', 'POST'])
-    def get_amz_payment_methods():
-        request_data = request.get_json()
-        # print (request_data)
-        locale_data = request_data
-        return amazon_payment_methods(locale_data)
-    
-    @app.route('/api/amazonPayment', methods=['POST'])
-    def amazon_payment():
-        request_data = request.get_json()
-        # print (request_data)
-        locale_data = request_data
-        return amazon_payments(request)
-
-    @app.route('/api/amazonAdditionalDetails', methods=['POST'])
-    def amazon_details():
-        return amazon_payment_details(request)
-
-    @app.route('/api/initiatePayment', methods=['POST'])
-    def initiate_payment():
-        request_data = request.get_json()
-        # print (request_data)
-        locale_data = request_data
-        return adyen_payments(request, locale_data)
-
-    @app.route('/api/submitAdditionalDetails', methods=['POST'])
-    def payment_details():
-        return get_payment_details(request)
-
-    @app.route('/api/disable', methods=['POST'])
-    def disable():
-        storedPaymentMethodId = request.get_json()['storedPaymentMethodId']
-        return disable_card(storedPaymentMethodId)
 
     @app.route('/api/handleShopperRedirect', methods=['POST', 'GET'])
     def handle_redirect():
@@ -93,19 +62,6 @@ def create_app():
         else:
             return redirect(url_for('checkout_failure'))
 
-    @app.route('/api/sessions', methods=['POST'])
-    def sessions():
-        host_url = request.host_url 
-        request_data = request.get_json()
-        print (request_data)
-        locale_data = request_data
-
-        return adyen_sessions(host_url, locale_data)
-
-    
-    @app.route('/amazonRedirect', methods=['GET'])
-    def amazon_redirect():
-        return render_template('amazonRedirect.html', method=None, client_key=get_amazon_client_key())
 
     @app.route('/result/success', methods=['GET'])
     def checkout_success():
@@ -122,12 +78,6 @@ def create_app():
     @app.route('/result/error', methods=['GET'])
     def checkout_error():
         return render_template('checkout-failed.html')
-
-    # Handle redirect (required for some payment methods)
-    @app.route('/redirect', methods=['POST', 'GET'])
-    def redirect_():
-
-        return render_template('component.html', method=None, client_key=get_adyen_client_key())
 
     # Process incoming webhook notifications
     @app.route('/api/webhooks/notifications', methods=['POST'])
