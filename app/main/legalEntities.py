@@ -9,7 +9,7 @@ from flask import Flask, render_template, url_for, redirect
 Generate PayByLink
 '''
 
-def legal_entity(legalName, regNumber, vatNumber, orgType, city, country, postalCode, stateProv, street):
+def legal_entity(legalName, currency, country):
     url = "https://kyc-test.adyen.com/lem/v2/legalEntities"
 
     user = get_lem_user()
@@ -26,15 +26,9 @@ def legal_entity(legalName, regNumber, vatNumber, orgType, city, country, postal
     "type": "organization",
       "organization": {
     "legalName": legalName,
-    "registrationNumber": regNumber,
-    "vatNumber": vatNumber,
     "type": "privateCompany",
     "registeredAddress": {
-      "city": city,
-      "country": country,
-      "postalCode": postalCode,
-      "stateOrProvince": stateProv,
-      "street": street
+      "country": country
     }
   }
 }
@@ -45,9 +39,9 @@ def legal_entity(legalName, regNumber, vatNumber, orgType, city, country, postal
 
     print("/legalEntities response:\n" + response.text, response.status_code, response.reason)
     
-    # node = json.loads(response.text)
-    # IndividualLEMid = node['id']
-    # print(IndividualLEMid)
+    node = json.loads(response.text)
+    LEMid = node['id']
+    print(LEMid)
     print(response.headers)
     if response.status_code == 200:
       return redirect(url_for('checkout_success'))

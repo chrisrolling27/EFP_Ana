@@ -21,6 +21,14 @@ def create_app():
     def home():
         return render_template('home.html')
 
+    @app.route('/login')
+    def login():
+        return render_template('login.html')
+    
+    @app.route('/registerForm')
+    def registerForm():
+        return render_template('registerForm.html')
+
     @app.route('/holders')
     def holders():
         return render_template('holders.html')
@@ -29,15 +37,11 @@ def create_app():
     def legal_entities():
         if request.method == 'POST':
             legalName = request.form['legalName']
-            regNumber = request.form['regNumber']
-            vatNumber = request.form['vatNumber']
-            orgType = request.form['orgType']
-            city = request.form['city']
+            email = request.form['email']
+            password = request.form['password']
+            currency = request.form['currency']
             country = request.form['country']
-            postalCode = request.form['postalCode']
-            stateProv = request.form['stateProv']
-            street = request.form['street']
-        return legal_entity(legalName, regNumber, vatNumber, orgType, city, country, postalCode, stateProv, street)
+        return legal_entity(legalName, currency, country)
         # return render_template('ledata.html')
 
 
