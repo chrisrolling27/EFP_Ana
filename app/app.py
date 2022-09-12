@@ -3,7 +3,7 @@ import logging
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, abort
 
-from main.legalEntities import legal_entity
+from main.onboarding import legal_entity
 from main.config import *
 
 
@@ -42,34 +42,12 @@ def create_app():
             currency = request.form['currency']
             country = request.form['country']
         return legal_entity(legalName, currency, country)
-        # return render_template('ledata.html')
 
 
-    @app.route('/api/handleShopperRedirect', methods=['POST', 'GET'])
-    def handle_redirect():
-        values = request.values.to_dict()  # Get values from query params in request object
-        details_request = {}
-
-        if "payload" in values:
-            details_request["details"] = {"payload": values["payload"]}
-        elif "redirectResult" in values:
-            details_request["details"] = {"redirectResult": values["redirectResult"]}
-
-        redirect_response = handle_shopper_redirect(details_request)
-
-        # Redirect shopper to landing page depending on payment success/failure
-        if redirect_response["resultCode"] == 'Authorised':
-            print ('I reach here')
-            return redirect(url_for('checkout_success'))
-        elif redirect_response["resultCode"] == 'Received' or redirect_response["resultCode"] == 'Pending':
-            return redirect(url_for('checkout_pending'))
-        else:
-            return redirect(url_for('checkout_failure'))
-
-
-    @app.route('/result/success', methods=['GET'])
-    def checkout_success():
-        return render_template('checkout-success.html')
+    @app.route('/result/success', methods=['GET', 'POST'])
+    def onboard_success():
+        lem = request.args['LEMid']
+        return render_template('onboard-success.html', lem=lem)
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():
