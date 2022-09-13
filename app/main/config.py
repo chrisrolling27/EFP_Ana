@@ -51,6 +51,22 @@ def get_lem_pass():
 
     return lem_pass
 
+def get_bp_user():
+    bp_user = os.environ.get("BP_USER")
+
+    if not bp_user:
+        raise Exception("Missing BP_USER in .env")
+
+    return bp_user
+
+def get_bp_pass():
+    bp_pass = os.environ.get("BP_PASS")
+
+    if not bp_pass:
+        raise Exception("Missing BP_PASS in .env")
+
+    return bp_pass
+
 def get_adyen_hmac_key():
     adyen_hmac_key = os.environ.get("ADYEN_HMAC_KEY")
 

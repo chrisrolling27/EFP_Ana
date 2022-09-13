@@ -1,10 +1,23 @@
 body {
 	font-size: .875rem;
+	font-family: "Open Sans", sans-serif;
+	background: #FFF;
+	color: #444444;
   }
   
   .feather {
 	width: 16px;
 	height: 16px;
+  }
+
+  a {
+	color: #FFC600;
+	/* text-decoration: none; */
+  }
+  
+  a:hover {
+	color: #FFD747;
+	text-decoration: none;
   }
   
   /*
@@ -23,6 +36,7 @@ body {
 	z-index: 200; /* Behind the navbar */
 	padding: 48px 0 0; /* Height of navbar */
 	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+	background-color: #fff0d0;
   }
   
   @media (max-width: 767.98px) {
@@ -35,20 +49,22 @@ body {
 	height: calc(100vh - 48px);
 	overflow-x: hidden;
 	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+	background-color: #111111;
   }
   
   .sidebar .nav-link {
 	font-weight: 500;
-	color: #333;
+	color: #fff;
   }
   
   .sidebar .nav-link .feather {
 	margin-right: 4px;
-	color: #727272;
+	color: #F2EFE8;
   }
   
   .sidebar .nav-link.active {
-	color: #2470dc;
+	color: #F2EFE8;
+	background-color: #1C1C1C;
   }
   
   .sidebar .nav-link:hover .feather,
@@ -67,8 +83,9 @@ body {
   .navbar-brand {
 	padding-top: .75rem;
 	padding-bottom: .90rem;
-	background-color: rgba(0, 0, 0, .25);
+	background-color: #ffb411;
 	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+	color: #111;
   }
   
   .navbar .navbar-toggler {
@@ -81,9 +98,9 @@ body {
   }
   
   .form-control-dark {
-	color: #fff;
-	background-color: rgba(255, 255, 255, .1);
-	border-color: rgba(255, 255, 255, .1);
+	color: #111	;
+	background-color: #fed275;
+	border-color: #ffb411;
   }
   
   .form-control-dark:focus {
@@ -95,4 +112,146 @@ body {
     --bs-gutter-y: 1rem;
 	margin-top: 2rem;
 }
+.bg-dark {
+	background-color: #ffb411!important;
+}
+/* Card */
+.card {
+	margin-bottom: 30px;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  }
+  
+  .card-header,
+  .card-footer {
+	border-color: #ebeef4;
+	background-color: #fff;
+	color: #798eb3;
+	padding: 15px;
+  }
+  
+  .card-title {
+	padding: 20px 0 15px 0;
+	font-size: 18px;
+	font-weight: 500;
+	color: #111!important;
+	font-family: "Poppins", sans-serif;
+  }
+  
+  .card-title span {
+	color: #899bbd;
+	font-size: 14px;
+	font-weight: 400;
+  }
+  
+  .card-body {
+	padding: 0 20px 20px 20px;
+  }
+  
+  .card-img-overlay {
+	background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .form-check-input:checked {
+    background-color: #FFC600;
+    border-color: #FFC600;
+  }
+
+/* Bordered Tabs */
+.nav-tabs-bordered {
+	border-bottom: 2px solid #ebeef4;
+  }
+  
+  .nav-tabs-bordered .nav-link {
+	margin-bottom: -2px;
+	border: none;
+	color: #F1C40F;
+  }
+  
+  .nav-tabs-bordered .nav-link:hover,
+  .nav-tabs-bordered .nav-link:focus {
+	color: #FFD747;
+  }
+  
+  .nav-tabs-bordered .nav-link.active {
+	background-color: #fff;
+	color: #FFC600;
+	border-bottom: 2px solid #FFD747;
+  }
+
+/*--------------------------------------------------------------
+# Profie Page
+--------------------------------------------------------------*/
+.profile .profile-card img {
+	max-width: 120px;
+  }
+  
+  .profile .profile-card h2 {
+	font-size: 24px;
+	font-weight: 700;
+	color: #7D6608;
+	margin: 10px 0 0 0;
+  }
+  
+  .profile .profile-card h3 {
+	font-size: 18px;
+  }
+  
+  .profile .profile-card .social-links a {
+	font-size: 20px;
+	display: inline-block;
+	color: rgba(1, 41, 112, 0.5);
+	line-height: 0;
+	margin-right: 10px;
+	transition: 0.3s;
+  }
+  
+  .profile .profile-card .social-links a:hover {
+	color: #B7950B;
+  }
+  
+  .profile .profile-overview .row {
+	margin-bottom: 50px;
+	font-size: 15px;
+  }
+  
+  .profile .profile-overview .card-title {
+	color: #7D6608;
+  }
+  
+  .profile .profile-overview .label {
+	font-weight: 600;
+	color: #7D6608;
+  }
+  
+  .profile .profile-edit label {
+	font-weight: 600;
+	color: #7D6608;
+  }
+  
+  .profile .profile-edit img {
+	max-width: 120px;
+  }
+
+  .pagetitle {
+	padding-top: 20px;
+  }
+
+/* Alert */
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+}
+.alert-dismissable .close, .alert-dismissible .close {
+    position: relative;
+    top: -2px;
+    right: -21px;
+    color: inherit;
+}
+
   

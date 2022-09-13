@@ -3,9 +3,11 @@ import logging
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, abort
 
-from main.legalEntities import legal_entity
+from main.register import legal_entity
+from main.onboard import go_to_link
 from main.config import *
 
+legalName =""
 
 def create_app():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -19,53 +21,38 @@ def create_app():
     # Routes:
     @app.route('/')
     def home():
-        return render_template('home.html')
+        return render_template('login.html')
 
-    @app.route('/holders')
-    def holders():
-        return render_template('holders.html')
+    @app.route('/login')
+    def login():
+        return render_template('login.html')
+    
+    @app.route('/registerForm')
+    def registerForm():
+        return render_template('registerForm.html')
 
     @app.route('/ledata', methods=['POST'])
     def legal_entities():
         if request.method == 'POST':
             legalName = request.form['legalName']
-            regNumber = request.form['regNumber']
-            vatNumber = request.form['vatNumber']
-            orgType = request.form['orgType']
-            city = request.form['city']
+            email = request.form['email']
+            password = request.form['password']
+            currency = request.form['currency']
             country = request.form['country']
-            postalCode = request.form['postalCode']
-            stateProv = request.form['stateProv']
-            street = request.form['street']
-        return legal_entity(legalName, regNumber, vatNumber, orgType, city, country, postalCode, stateProv, street)
-        # return render_template('ledata.html')
+        return legal_entity(legalName, currency, country)
 
 
-    @app.route('/api/handleShopperRedirect', methods=['POST', 'GET'])
-    def handle_redirect():
-        values = request.values.to_dict()  # Get values from query params in request object
-        details_request = {}
+    @app.route('/result/success', methods=['GET', 'POST'])
+    def onboard_success():
+        lem = request.args['LEMid']
+        return render_template('onboard-success.html', lem=lem)
 
-        if "payload" in values:
-            details_request["details"] = {"payload": values["payload"]}
-        elif "redirectResult" in values:
-            details_request["details"] = {"redirectResult": values["redirectResult"]}
-
-        redirect_response = handle_shopper_redirect(details_request)
-
-        # Redirect shopper to landing page depending on payment success/failure
-        if redirect_response["resultCode"] == 'Authorised':
-            print ('I reach here')
-            return redirect(url_for('checkout_success'))
-        elif redirect_response["resultCode"] == 'Received' or redirect_response["resultCode"] == 'Pending':
-            return redirect(url_for('checkout_pending'))
-        else:
-            return redirect(url_for('checkout_failure'))
-
-
-    @app.route('/result/success', methods=['GET'])
-    def checkout_success():
-        return render_template('checkout-success.html')
+    @app.route('/onboard/<lem>', methods=['POST', 'GET'])
+    def onboard_link(lem):
+        if request.method == 'POST':
+            LEMid = lem
+            # LEMid = request.args.get('LEMid', default = '*', type = str)
+        return go_to_link(LEMid)
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():
@@ -101,7 +88,7 @@ def create_app():
     @app.route('/favicon.ico')
     def favicon():
         return send_from_directory(os.path.join(app.root_path, 'static'),
-                                   'img/favicon.ico')
+                                   'img/banana.png')
 
     return app
 

@@ -1,0 +1,339 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <title>Confirmation</title>
+
+    <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3 sidebar-sticky">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{{ url_for('home') }}">
+                    <span data-feather="home" class="align-text-bottom"></span>
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('home') }}">
+                    <span data-feather="file" class="align-text-bottom"></span>
+                    Orders
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                    Products
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">
+                    <span data-feather="users" class="align-text-bottom"></span>
+                    Account
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                    Reports
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <span data-feather="layers" class="align-text-bottom"></span>
+                    Integrations
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="alert alert-success align-items-center alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                <strong>Welcome!</strong> Your account was created successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="pagetitle">
+                <h1>Profile</h1>
+                <nav>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item active">Profile</li>
+                  </ol>
+                </nav>
+              </div><!-- End Page Title -->
+            <div class="status-container">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </symbol>
+                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </symbol>
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </symbol>
+                </svg>
+            </div>
+            <section class="section profile">
+                <div class="row">
+                  <div class="col-xl-4">
+          
+                    <div class="card">
+                      <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+          
+                        <img src="{{ url_for('static', filename='img/adminPic.png') }}" alt="Profile" class="rounded-circle">
+                        <h2>Company Name</h2>
+                        <h3>Admin</h3>
+                      </div>
+                    </div>
+          
+                  </div>
+          
+                  <div class="col-xl-8">
+          
+                    <div class="card">
+                      <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+          
+                          <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                          </li>
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                          </li>
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                          </li>
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                          </li>
+          
+                        </ul>
+                        <div class="tab-content pt-2">
+          
+                          <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <h5 class="card-title">About</h5>
+                            <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+          
+                            <h5 class="card-title">Profile Details</h5>
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Email</div>
+                              <div class="col-lg-9 col-md-8">test@example.com</div>
+                            </div>
+                            <div class="alert alert-warning" role="alert">
+                                Your account is missing information.
+                            </div>
+                            <form action="/onboard/{{lem}}" method="POST">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-dark btn-lg btn-block">Continue Onboarding</button>
+                                </div>
+                            </form>
+          
+                          </div>
+          
+                          <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+          
+                            <!-- Profile Edit Form -->
+                            <form>
+                              <div class="row mb-3">
+                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <img src="assets/img/profile-img.jpg" alt="Profile">
+                                  <div class="pt-2">
+                                    <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                                  </div>
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="country" type="text" class="form-control" id="Country" value="USA">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
+                                </div>
+                              </div>
+          
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-warning">Save Changes</button>
+                              </div>
+                            </form><!-- End Profile Edit Form -->
+          
+                          </div>
+          
+                          <div class="tab-pane fade pt-3" id="profile-settings">
+          
+                            <!-- Settings Form -->
+                            <form>
+          
+                              <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                                    <label class="form-check-label" for="changesMade">
+                                      Changes made to your account
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                                    <label class="form-check-label" for="newProducts">
+                                      Information on new products and services
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="proOffers">
+                                    <label class="form-check-label" for="proOffers">
+                                      Marketing and promo offers
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                                    <label class="form-check-label" for="securityNotify">
+                                      Security alerts
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+          
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-warning">Save Changes</button>
+                              </div>
+                            </form><!-- End settings Form -->
+          
+                          </div>
+          
+                          <div class="tab-pane fade pt-3" id="profile-change-password">
+                            <!-- Change Password Form -->
+                            <form>
+          
+                              <div class="row mb-3">
+                                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="password" type="password" class="form-control" id="currentPassword">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                                </div>
+                              </div>
+          
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-warning">Change Password</button>
+                              </div>
+                            </form><!-- End Change Password Form -->
+          
+                          </div>
+          
+                        </div><!-- End Bordered Tabs -->
+          
+                      </div>
+                    </div>
+          
+                  </div>
+                </div>
+              </section>
+          </main>
+        </div>
+    </div>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+      feather.replace()
+      const urlParams = new URLSearchParams(window.location.search);
+      const url_lem = urlParams.get('LEMid');
+      console.log(url_lem)
+    </script>
+{% endblock %}
