@@ -130,7 +130,7 @@
                             <div class="alert alert-warning" role="alert">
                                 Your account is missing information.
                             </div>
-                            <form action="/onboard" method="POST">
+                            <form action="/onboard/{{lem}}" method="POST">
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-dark btn-lg btn-block">Continue Onboarding</button>
                                 </div>
@@ -332,5 +332,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
       feather.replace()
+      const urlParams = new URLSearchParams(window.location.search);
+      const url_lem = urlParams.get('LEMid');
+      console.log(url_lem)
     </script>
 {% endblock %}

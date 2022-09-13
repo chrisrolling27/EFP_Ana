@@ -7,6 +7,7 @@ from main.register import legal_entity
 from main.onboard import go_to_link
 from main.config import *
 
+legalName =""
 
 def create_app():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -46,15 +47,12 @@ def create_app():
         lem = request.args['LEMid']
         return render_template('onboard-success.html', lem=lem)
 
-    @app.route('/onboard', methods=['POST', 'GET'])
-    def onboard_link():
+    @app.route('/onboard/<lem>', methods=['POST', 'GET'])
+    def onboard_link(lem):
         if request.method == 'POST':
-            legalName = request.form['legalName']
-            email = request.form['email']
-            password = request.form['password']
-            currency = request.form['currency']
-            country = request.form['country']
-        return go_to_link(legalName, currency, country)
+            LEMid = lem
+            # LEMid = request.args.get('LEMid', default = '*', type = str)
+        return go_to_link(LEMid)
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():
