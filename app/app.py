@@ -3,7 +3,8 @@ import logging
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, abort
 
-from main.onboarding import legal_entity
+from main.register import legal_entity
+from main.onboard import go_to_link
 from main.config import *
 
 
@@ -19,7 +20,7 @@ def create_app():
     # Routes:
     @app.route('/')
     def home():
-        return render_template('home.html')
+        return render_template('login.html')
 
     @app.route('/login')
     def login():
@@ -28,10 +29,6 @@ def create_app():
     @app.route('/registerForm')
     def registerForm():
         return render_template('registerForm.html')
-
-    @app.route('/holders')
-    def holders():
-        return render_template('holders.html')
 
     @app.route('/ledata', methods=['POST'])
     def legal_entities():
@@ -48,6 +45,16 @@ def create_app():
     def onboard_success():
         lem = request.args['LEMid']
         return render_template('onboard-success.html', lem=lem)
+
+    @app.route('/onboard', methods=['POST', 'GET'])
+    def onboard_link():
+        if request.method == 'POST':
+            legalName = request.form['legalName']
+            email = request.form['email']
+            password = request.form['password']
+            currency = request.form['currency']
+            country = request.form['country']
+        return go_to_link(legalName, currency, country)
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():
@@ -83,7 +90,7 @@ def create_app():
     @app.route('/favicon.ico')
     def favicon():
         return send_from_directory(os.path.join(app.root_path, 'static'),
-                                   'img/favicon.ico')
+                                   'img/banana.png')
 
     return app
 
