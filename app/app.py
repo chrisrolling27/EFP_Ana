@@ -5,6 +5,7 @@ from os.path import exists
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request
 
+from main import database
 from main import config
 from main.config import *
 from main.onboard import go_to_link
@@ -55,11 +56,10 @@ def create_app():
             if "/result/success?LEMid=" in location:
 
                 # substring LEM ID (ugly but works)
-                LEMid = location[22:]
+                lem_id = location[22:]
 
                 # insert into database
-                sql_insert_user = config.sql_insert_user.replace("username", email).replace("password", password).replace("lem_id", LEMid);
-                config.execute_sql(sql_insert_user)
+                database.insert_user(email, password, lem_id)
 
             return redirect_response
 
@@ -126,11 +126,12 @@ def initialise_db(directory_path):
     """Function to connect to SQLite DB, including DB creation and config if required"""
 
     # create path to DB file and store in config
-    config.set_db_file(os.path.join(directory_path, 'app.sqlite'))
+    path_to_db_file = os.path.join(directory_path, 'app.sqlite')
+    database.set_path_to_db_file(path_to_db_file)
 
     # check if DB file already exists - if not, execute DDL to create table
-    if not exists(config.path_to_db_file):
-        config.execute_sql(sql_create_table)
+    if not exists(path_to_db_file):
+        database.create_table()
 
 
 if __name__ == '__main__':
