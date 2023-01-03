@@ -6,7 +6,7 @@ load_dotenv(find_dotenv())
 
 
 def get_port():
-    return os.environ.get("PORT", 8080)
+    return os.environ.get("PORT", 3000)
 
 
 def get_adyen_merchant_account():
