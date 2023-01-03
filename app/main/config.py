@@ -1,4 +1,5 @@
 import os
+import sqlite3
 
 from dotenv import load_dotenv, find_dotenv
 
@@ -109,3 +110,21 @@ def get_supported_integration():
     # Check to make sure variables are set
     # if not merchant_account or not checkout_apikey or not client_key or not hmac_key:
     #     raise Exception("Incomplete configuration in .env")
+
+
+# database variables
+path_to_db_file = None
+
+def set_db_file(db_file):
+    global path_to_db_file
+    path_to_db_file = db_file
+
+def execute_sql(sql):
+    with sqlite3.connect(path_to_db_file) as conn:
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        cursor.close()
+
+sql_create_table = """CREATE TABLE users(username PRIMARY KEY, password NOT NULL, lem_id NOT NULL);"""
+
+sql_insert_user = """INSERT INTO users VALUES ('username', 'password', 'lem_id');"""
