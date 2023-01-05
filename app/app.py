@@ -9,8 +9,10 @@ from main import config
 from main.config import *
 from main.onboard import go_to_link
 from main.register import legal_entity
+from main.store import *
 
 legalName =""
+
 
 def create_app():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -75,6 +77,68 @@ def create_app():
             LEMid = lem
             # LEMid = request.args.get('LEMid', default = '*', type = str)
         return go_to_link(LEMid)
+
+    @app.route('/storeData', methods=['POST'])
+    def new_store():
+        if request.method == 'POST':
+            lem_id = request.form.get('LEMid')
+            print(lem_id)
+
+            # get variables from request
+            reference = request.form['reference']
+            description = request.form['description']
+            channel = request.form['channel']
+            webAddress = request.form['webAddress']
+            shopperStatement = request.form['shopperStatement']
+            phoneNumber = request.form['phoneNumber']
+            line1 = request.form['line1']
+            city = request.form['city']
+            postalCode = request.form['postalCode']
+            country = request.form['country']
+            industryCode = request.form['industryCode']
+            schemes = []
+            if request.form.get('visa'):
+                schemes.append('visa')
+            if request.form.get('mc'):
+                schemes.append('mc')
+            if request.form.get('amex'):
+                schemes.append('amex')
+            currencies = []
+            if request.form.get('GBP'):
+                currencies.append('GBP')
+            if request.form.get('EUR'):
+                currencies.append('EUR')
+            if request.form.get('USD'):
+                currencies.append('USD')
+            countries = []
+            if request.form.get('GB'):
+                countries.append('GB')
+            if request.form.get('NL'):
+                countries.append('NL')
+            if request.form.get('US'):
+                countries.append('US')
+            
+
+            # create business line, store, payment methods and get redirect response
+            redirect_response = business_line(
+                industryCode,
+                webAddress,
+                lem_id,
+                reference,
+                description,
+                channel,
+                shopperStatement,
+                phoneNumber,
+                line1,
+                city,
+                postalCode,
+                country,
+                schemes,
+                currencies,
+                countries)
+
+            return redirect_response
+
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():
