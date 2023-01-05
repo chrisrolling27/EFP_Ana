@@ -24,3 +24,7 @@ def create_table():
 def insert_user(username, password, lem_id):
     sql_insert_user = "INSERT INTO users VALUES ('" + username + "', '" + password + "', '" + lem_id + "');"
     _execute_sql(sql_insert_user)
+
+# def get_user():
+#     sql_get_user = "SELECT lem_id FROM users"
+#     _execute_sql(sql_get_user)

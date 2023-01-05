@@ -78,13 +78,15 @@ def create_app():
             # LEMid = request.args.get('LEMid', default = '*', type = str)
         return go_to_link(LEMid)
 
-    @app.route('/storeData', methods=['POST'])
-    def new_store():
+    @app.route('/storeData/<lem>', methods=['POST'])
+    def new_store(lem):
         if request.method == 'POST':
-            lem_id = request.form.get('LEMid')
-            print(lem_id)
+            # lem_id = request.base_url
+            # print(lem_id)
+
 
             # get variables from request
+            lem_id = lem
             reference = request.form['reference']
             description = request.form['description']
             channel = request.form['channel']
@@ -117,6 +119,10 @@ def create_app():
                 countries.append('NL')
             if request.form.get('US'):
                 countries.append('US')
+
+            print(countries)
+            print(currencies)
+            print(schemes)
             
 
             # create business line, store, payment methods and get redirect response

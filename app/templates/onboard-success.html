@@ -101,6 +101,10 @@
                           <li class="nav-item">
                             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                           </li>
+
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#store-edit">Stores</button>
+                          </li>
           
                           <li class="nav-item">
                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
@@ -135,6 +139,150 @@
                                     <button type="submit" class="btn btn-dark btn-lg btn-block">Continue Onboarding</button>
                                 </div>
                             </form>
+          
+                          </div>
+
+                          <!-- Stores Section -->
+                          <div class="tab-pane fade store-edit pt-3" id="store-edit">
+
+                            <form action="/onboard/{{lem}}" method="POST">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-warning btn-lg btn-block">
+                                      <span data-feather="plus" stroke-width="3" class="align-text-centre"></span>
+                                      Store
+                                    </button>
+                                </div>
+                            </form>
+                            <form action="/storeData/{{lem}}" method="POST" class="row g-3">
+                                <hr/>
+                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Store details
+                                  <span data-feather="shopping-bag" stroke-width="3" class="align-text-centre"></span>
+                                </h5>
+                                <div class="col-md-12">
+                                  <label for="inputStoreName" class="form-label">Store Name</label>
+                                  <input type="text" class="form-control" id="inputStoreName" name="reference" required>
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="inputStoreDes" class="form-label">Store Description</label>
+                                  <input type="text" class="form-control" id="inputStoreDes" name="description" required>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="inputChannel" class="form-label">Sales channel</label>
+                                  <select id="inputChannel" class="form-select" name="channel" required>
+                                    <option selected>Choose...</option>
+                                    <option>pos</option>
+                                    <option>eCommerce</option>
+                                    <option>payByLink</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="inputShopperS" class="form-label">Shopper Statement</label>
+                                  <input type="text" class="form-control" id="inputShopperS" name="shopperStatement" required>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="inputMCC" class="form-label">Industry Code</label>
+                                  <input type="text" class="form-control" id="inputMCC" name="industryCode" required>
+                                </div>
+                                <div class="col-md-6">
+                                  <label class="form-label" for="inputPhone">Phone number</label>
+                                  <input type="tel" id="inputPhone" name="phoneNumber" class="form-control" />
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="inputWeb" class="form-label">Website</label>
+                                  <input type="text" class="form-control" id="inputWeb" name="webAddress">
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="inputline1" class="form-label">Address</label>
+                                  <input type="text" class="form-control" id="inputline1" name="line1" required>
+                                </div>
+                                <div class="col-md-4">
+                                  <label for="inputCity" class="form-label">City</label>
+                                  <input type="text" class="form-control" id="inputCity" name="city" required>
+                                </div>
+                                <div class="col-md-4">
+                                  <label for="inputPost" class="form-label">Post Code</label>
+                                  <input type="text" class="form-control" id="inputPost" name="postalCode" required>
+                                </div>
+                                <div class="col-md-4">
+                                  <label for="inputCountry" class="form-label">Country</label>
+                                  <select id="inputCountry" class="form-select" name="country" required>
+                                    <option selected>Choose...</option>
+                                    <option>GB</option>
+                                    <option>NL</option>
+                                    <option>US</option>
+                                  </select>
+                                </div>
+                                <hr/>
+                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Payment methods
+                                <span data-feather="credit-card" stroke-width="3" class="align-text-centre"></span>
+                                </h5>
+                                <div class="col-md-4">
+                                  <input class="form-check-input" type="checkbox" id="visaPM" name="visa" value="visa">
+                                  <label class="form-check-label" for="visaPM">
+                                    <img src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/visa.svg" width="42" height="42" style="vertical-align:middle"/>
+                                  </label>
+                                </div>
+                                <div class="col-md-4">
+                                  <input class="form-check-input" type="checkbox" id="mcPM" name="mc" value="mc">
+                                  <label class="form-check-label" for="mcPM">
+                                    <img src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/mc.svg" width="42" height="42" style="vertical-align:middle"/>
+                                  </label>
+                                </div>
+                                <div class="col-md-4">
+                                  <input class="form-check-input" type="checkbox" id="amexPM" name="amex" value="amex">
+                                  <label class="form-check-label" for="amexPM">
+                                    <img src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/amex.svg" width="42" height="42" style="vertical-align:middle"/>
+                                  </label>
+                                </div>
+                                <hr/>
+                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Accepted Countries and Currencies                                </h5>
+                                <div class="col-md-6">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="GBP" value="GBP" id="GBP">
+                                    <label class="form-check-label" for="GBP">
+                                      GBP
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="EUR" value="EUR" id="EUR">
+                                    <label class="form-check-label" for="EUR">
+                                      EUR
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="USD" value="USD" id="USD">
+                                    <label class="form-check-label" for="USD">
+                                      USD
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="GB" value="GB" id="GB">
+                                    <label class="form-check-label" for="GB">
+                                      GB
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="NL" value="NL" id="NL">
+                                    <label class="form-check-label" for="NL">
+                                      NL
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="US" value="US" id="US">
+                                    <label class="form-check-label" for="US">
+                                      US
+                                    </label>
+                                  </div>
+                                </div>
+                                <hr/>
+                                <input type="hidden" id="lem" name="lem" value="">
+                                <div class="col-12">
+                                  <button type="submit" class="btn btn-dark btn-lg btn-block">Submit</button>
+                                </div>
+                              </form>
+                              
           
                           </div>
           
@@ -331,9 +479,16 @@
     </div>
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
+      $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+      });
+    </script>
+    <script>
       feather.replace()
       const urlParams = new URLSearchParams(window.location.search);
       const url_lem = urlParams.get('LEMid');
+      const lem_id = urlParams.get('LEMid');
+      document.getElementById("lem").value = lem_id;
       console.log(url_lem)
     </script>
 {% endblock %}
