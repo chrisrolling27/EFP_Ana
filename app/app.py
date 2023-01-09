@@ -65,6 +65,22 @@ def create_app():
 
             return redirect_response
 
+    @app.route('/getData', methods=['POST'])
+    def get_data():
+        # get variables from form
+        email = request.form['email']
+        password = request.form['password']
+        # send data to be validated vs the database
+        loginData = database.get_user(email, password)
+        # resolve depending on the validation
+        if loginData == 'error':
+            return render_template('login.html', passError=True)
+        if loginData == 'user error':
+            return render_template('login.html', userError=True)
+        else:
+            # success! get the lem ID of the logged user
+            lem = loginData
+            return render_template('onboard-success.html', lem=lem)
 
     @app.route('/result/success', methods=['GET', 'POST'])
     def onboard_success():
@@ -119,10 +135,6 @@ def create_app():
                 countries.append('NL')
             if request.form.get('US'):
                 countries.append('US')
-
-            print(countries)
-            print(currencies)
-            print(schemes)
             
 
             # create business line, store, payment methods and get redirect response
@@ -159,23 +171,24 @@ def create_app():
         return render_template('checkout-failed.html')
 
     # Process incoming webhook notifications
-    @app.route('/api/webhooks/notifications', methods=['POST'])
+    @app.route('/api/AnaBanana/notifications', methods=['POST'])
     def webhook_notifications():
         """
         Receives outcome of each payment
         :return:
         """
-        notifications = request.json['notificationItems']
+        # notifications = request.json['notificationItems']
+        if request.method == 'POST':
+            print("Data received from Webhook is: ", request.json)
+            return '[accepted]'
 
-        for notification in notifications:
-            if is_valid_hmac_notification(notification['NotificationRequestItem'], get_adyen_hmac_key()) :
-                print(f"merchantReference: {notification['NotificationRequestItem']['merchantReference']} "
-                      f"result? {notification['NotificationRequestItem']['success']}")
-            else:
-                # invalid hmac: do not send [accepted] response
-                raise Exception("Invalid HMAC signature")
-
-        return '[accepted]'
+        # for notification in notifications:
+        #     if is_valid_hmac_notification(notification['NotificationRequestItem'], get_adyen_hmac_key()) :
+        #         print(f"merchantReference: {notification['NotificationRequestItem']['merchantReference']} "
+        #               f"result? {notification['NotificationRequestItem']['success']}")
+        #     else:
+        #         # invalid hmac: do not send [accepted] response
+        #         raise Exception("Invalid HMAC signature")
 
     @app.route('/favicon.ico')
     def favicon():
