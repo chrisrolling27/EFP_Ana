@@ -153,6 +153,10 @@ body {
 	background-color: rgba(255, 255, 255, 0.6);
   }
 
+  .form-check-input {
+	vertical-align: middle!important;
+  }
+
   .form-check-input:checked {
     background-color: #FFC600;
     border-color: #FFC600;

@@ -5,12 +5,15 @@ from os.path import exists
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request
 
+from main import database
 from main import config
 from main.config import *
 from main.onboard import go_to_link
 from main.register import legal_entity
+from main.store import *
 
 legalName =""
+
 
 def create_app():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -55,14 +58,29 @@ def create_app():
             if "/result/success?LEMid=" in location:
 
                 # substring LEM ID (ugly but works)
-                LEMid = location[22:]
+                lem_id = location[22:]
 
                 # insert into database
-                sql_insert_user = config.sql_insert_user.replace("username", email).replace("password", password).replace("lem_id", LEMid);
-                config.execute_sql(sql_insert_user)
+                database.insert_user(email, password, lem_id)
 
             return redirect_response
 
+    @app.route('/getData', methods=['POST'])
+    def get_data():
+        # get variables from form
+        email = request.form['email']
+        password = request.form['password']
+        # send data to be validated vs the database
+        loginData = database.get_user(email, password)
+        # resolve depending on the validation
+        if loginData == 'error':
+            return render_template('login.html', passError=True)
+        if loginData == 'user error':
+            return render_template('login.html', userError=True)
+        else:
+            # success! get the lem ID of the logged user
+            lem = loginData
+            return render_template('onboard-success.html', lem=lem)
 
     @app.route('/result/success', methods=['GET', 'POST'])
     def onboard_success():
@@ -75,6 +93,70 @@ def create_app():
             LEMid = lem
             # LEMid = request.args.get('LEMid', default = '*', type = str)
         return go_to_link(LEMid)
+
+    @app.route('/storeData/<lem>', methods=['POST'])
+    def new_store(lem):
+        if request.method == 'POST':
+            # lem_id = request.base_url
+            # print(lem_id)
+
+
+            # get variables from request
+            lem_id = lem
+            reference = request.form['reference']
+            description = request.form['description']
+            channel = request.form['channel']
+            webAddress = request.form['webAddress']
+            shopperStatement = request.form['shopperStatement']
+            phoneNumber = request.form['phoneNumber']
+            line1 = request.form['line1']
+            city = request.form['city']
+            postalCode = request.form['postalCode']
+            country = request.form['country']
+            industryCode = request.form['industryCode']
+            schemes = []
+            if request.form.get('visa'):
+                schemes.append('visa')
+            if request.form.get('mc'):
+                schemes.append('mc')
+            if request.form.get('amex'):
+                schemes.append('amex')
+            currencies = []
+            if request.form.get('GBP'):
+                currencies.append('GBP')
+            if request.form.get('EUR'):
+                currencies.append('EUR')
+            if request.form.get('USD'):
+                currencies.append('USD')
+            countries = []
+            if request.form.get('GB'):
+                countries.append('GB')
+            if request.form.get('NL'):
+                countries.append('NL')
+            if request.form.get('US'):
+                countries.append('US')
+            
+
+            # create business line, store, payment methods and get redirect response
+            redirect_response = business_line(
+                industryCode,
+                webAddress,
+                lem_id,
+                reference,
+                description,
+                channel,
+                shopperStatement,
+                phoneNumber,
+                line1,
+                city,
+                postalCode,
+                country,
+                schemes,
+                currencies,
+                countries)
+
+            return redirect_response
+
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():
@@ -89,23 +171,24 @@ def create_app():
         return render_template('checkout-failed.html')
 
     # Process incoming webhook notifications
-    @app.route('/api/webhooks/notifications', methods=['POST'])
+    @app.route('/api/AnaBanana/notifications', methods=['POST'])
     def webhook_notifications():
         """
         Receives outcome of each payment
         :return:
         """
-        notifications = request.json['notificationItems']
+        # notifications = request.json['notificationItems']
+        if request.method == 'POST':
+            print("Data received from Webhook is: ", request.json)
+            return '[accepted]'
 
-        for notification in notifications:
-            if is_valid_hmac_notification(notification['NotificationRequestItem'], get_adyen_hmac_key()) :
-                print(f"merchantReference: {notification['NotificationRequestItem']['merchantReference']} "
-                      f"result? {notification['NotificationRequestItem']['success']}")
-            else:
-                # invalid hmac: do not send [accepted] response
-                raise Exception("Invalid HMAC signature")
-
-        return '[accepted]'
+        # for notification in notifications:
+        #     if is_valid_hmac_notification(notification['NotificationRequestItem'], get_adyen_hmac_key()) :
+        #         print(f"merchantReference: {notification['NotificationRequestItem']['merchantReference']} "
+        #               f"result? {notification['NotificationRequestItem']['success']}")
+        #     else:
+        #         # invalid hmac: do not send [accepted] response
+        #         raise Exception("Invalid HMAC signature")
 
     @app.route('/favicon.ico')
     def favicon():
@@ -126,11 +209,12 @@ def initialise_db(directory_path):
     """Function to connect to SQLite DB, including DB creation and config if required"""
 
     # create path to DB file and store in config
-    config.set_db_file(os.path.join(directory_path, 'app.sqlite'))
+    path_to_db_file = os.path.join(directory_path, 'app.sqlite')
+    database.set_path_to_db_file(path_to_db_file)
 
     # check if DB file already exists - if not, execute DDL to create table
-    if not exists(config.path_to_db_file):
-        config.execute_sql(sql_create_table)
+    if not exists(path_to_db_file):
+        database.create_table()
 
 
 if __name__ == '__main__':
