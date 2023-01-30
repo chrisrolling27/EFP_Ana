@@ -48,11 +48,13 @@
             </div>
           </nav>
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            {% if newUser %}
             <div class="alert alert-success align-items-center alert-dismissible fade show" role="alert">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                 <strong>Welcome!</strong> Your account was created successfully
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            {% endif %}
             <div class="pagetitle">
                 <h1>Profile</h1>
                 <nav>
@@ -129,7 +131,7 @@
           
                             <div class="row">
                               <div class="col-lg-3 col-md-4 label">Email</div>
-                              <div class="col-lg-9 col-md-8">test@example.com</div>
+                              <div class="col-lg-9 col-md-8">{{ email }}</div>
                             </div>
                             <div class="alert alert-warning" role="alert">
                                 Your account is missing information.
@@ -141,16 +143,41 @@
                             </form>
           
                           </div>
-
                           <!-- Stores Section -->
-                          <div class="tab-pane fade store-edit pt-3" id="store-edit">
-
-                            <div class="col-12">
+                          <div class="tab-pane fade store-edit pt-3" href="/getStores" id="store-edit">
+                          <!-- Pending Requests Card Example -->
+                          {% if newUser!= None %}
+                          <div class="row">
+                            <div class="col-6 store-card">
+                              <div class="card border-left-warning shadow h-100 py-2">
+                                  <div class="card-body store-padding">
+                                      <div class="row no-gutters align-items-center">
+                                          <div class="col mr-2">
+                                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                  Active</div>
+                                              
+                                              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <span data-feather="shopping-cart" stroke-width="3" class="align-text-centre" width="36"></span>
+                                                  Store Name</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                            <div class="col-12 store-card">
                               <button type="button" onclick="showForm()" class="btn btn-warning btn-lg btn-block">
                                 <span data-feather="plus" stroke-width="3" class="align-text-centre"></span>
                                 Store
                               </button>
                             </div>
+                            <div class="col-12 store-card">
+                              <a type="button" href="/testButton/{{lem}}" class="btn btn-success btn-lg btn-block">
+                                Test
+                              </a>
+                            </div>
+                             <!-- DataTales Example -->
                             <div id="newStoreForm" style="display: none;">
                               <form action="/storeData/{{lem}}" method="POST" class="row g-3">
                                 <hr/>
@@ -477,11 +504,11 @@
         </div>
     </div>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script>
+    <!-- <script>
       $(document).ready(function() {
         $('.js-example-basic-multiple').select2();
       });
-    </script>
+    </script> -->
     <script>
       feather.replace()
       const urlParams = new URLSearchParams(window.location.search);

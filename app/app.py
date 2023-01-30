@@ -82,16 +82,30 @@ def create_app():
             lem = loginData
             return render_template('onboard-success.html', lem=lem)
 
+    @app.route('/getStores', methods=['POST', 'GET'])
+    def get_stores():
+        return 
+
+    @app.route('/testButton/<lem>', methods=['POST', 'GET'])
+    def test_button(lem):
+        lem_id = lem
+        result = database.get_stores(lem_id)
+        print("this is the result ", result)
+        # existingStoreNames = [item[0] for item in result]
+        # print(existingStoreNames)
+        if result:
+            print(result[0]['storeName'])
+        return render_template('onboard-success.html')
+
     @app.route('/result/success', methods=['GET', 'POST'])
     def onboard_success():
         lem = request.args['LEMid']
-        return render_template('onboard-success.html', lem=lem)
+        return render_template('onboard-success.html', lem=lem, newUser=True)
 
     @app.route('/onboard/<lem>', methods=['POST', 'GET'])
     def onboard_link(lem):
         if request.method == 'POST':
             LEMid = lem
-            # LEMid = request.args.get('LEMid', default = '*', type = str)
         return go_to_link(LEMid)
 
     @app.route('/storeData/<lem>', methods=['POST'])

@@ -1,6 +1,6 @@
 body {
 	font-size: .875rem;
-	font-family: "Open Sans", sans-serif;
+	font-family: "Poppins","Nunito","Open Sans", sans-serif;
 	background: #FFF;
 	color: #444444;
   }
@@ -160,6 +160,20 @@ body {
   .form-check-input:checked {
     background-color: #FFC600;
     border-color: #FFC600;
+  }
+
+  .border-left-warning {
+    border-left: 0.25rem solid #f6c23e!important;
+  }
+
+  .store-card {
+	padding-right: 0.75rem!important;
+    padding-left: 0.75rem!important;
+	margin-bottom: 1.5rem!important;
+  }
+
+  .store-padding {
+	padding: 20px 20px 10px 20px!important;
   }
 
 /* Bordered Tabs */

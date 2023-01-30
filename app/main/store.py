@@ -4,6 +4,7 @@ import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass, get_adyen_api_key, get_adyen_merchant_account
 from flask import Flask, render_template, url_for, redirect
+from main import database
 
 '''
 Partner Model onboarding Flow
@@ -54,17 +55,17 @@ def business_line(industryCode,
 
   print("/businessLines response:\n" + response.text, response.status_code, response.reason)
   
-  node = json.loads(response.text)
-  businessLine = node['id']
-  print(businessLine)
   print(response.headers)
   if response.status_code == 200:
-    store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries)
+    node = json.loads(response.text)
+    businessLine = node['id']
+    print(businessLine)
+    store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id)
     return redirect(url_for('onboard_success', LEMid=lem_id))
   else:
     return response.text
 
-def store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries):
+def store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id):
   url = "https://management-test.adyen.com/v1/stores"
 
   apiKey = get_adyen_api_key()
@@ -101,10 +102,11 @@ def store_create(reference, description, shopperStatement, phoneNumber, line1, c
   print("/stores response:\n" + response.text, response.status_code, response.reason)
   
   node = json.loads(response.text)
-  storeId = node['id']
-  print(storeId)
   print(response.headers)
   if response.status_code == 201 or 200:
+      storeId = node['id']
+      storeDB = database.insert_store(lem_id, storeId)
+      print(storeId)
       for scheme in schemes:
         payment_method(scheme, businessLine, storeId, currencies, countries)
         continue
@@ -137,6 +139,32 @@ def payment_method(scheme, businessLine, storeId, currencies, countries):
   response = requests.post(url, data = json.dumps(payload), headers = headers)
 
   print("/paymentMethodSettings response:\n" + response.text, response.status_code, response.reason)
+  
+  node = json.loads(response.text)
+  print(response.headers)
+  if response.status_code == 200:
+    return response.text
+  else:
+    return response.text
+
+
+def get_stores_for_le(storeId):
+  merchantId = get_adyen_merchant_account()
+  url = f"https://management-test.adyen.com/v1/merchants/{merchantId}/stores/{storeId}"
+
+  apiKey = get_adyen_api_key()
+  platform = "test" # change to live for production
+
+  headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey
+  }
+
+  print("/store request:\n")
+
+  response = requests.get(url, headers = headers)
+
+  print("/store response:\n" + response.text, response.status_code, response.reason)
   
   node = json.loads(response.text)
   print(response.headers)
