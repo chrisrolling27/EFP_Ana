@@ -10,12 +10,66 @@ from main import database
 Partner Model onboarding Flow
 '''
 
-def business_line(industryCode,
-                webAddress,
+# def business_line(industryCode,
+#                 webAddress,
+#                 lem_id,
+#                 reference,
+#                 description,
+#                 channel,
+#                 shopperStatement,
+#                 phoneNumber,
+#                 line1,
+#                 city,
+#                 postalCode,
+#                 country,
+#                 schemes,
+#                 currencies,
+#                 countries):
+#   url = "https://kyc-test.adyen.com/lem/v2/businessLines"
+
+#   user = get_lem_user()
+#   password = get_lem_pass()
+
+#   basic = (user, password)
+#   platform = "test" # change to live for production
+
+#   headers = {
+#       'Content-Type': 'application/json'
+#   }
+
+#   payload = {
+#     "capability": "receivePayments",
+#     "salesChannels": [channel],
+#     "industryCode": industryCode,
+#     "legalEntityId": lem_id,
+#     "webData": [
+#         {
+#         "webAddress": webAddress
+#         }
+#     ]
+#     }
+
+#   print("/businessLines request:\n" + str(payload))
+
+#   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
+
+#   print("/businessLines response:\n" + response.text, response.status_code, response.reason)
+  
+#   print(response.headers)
+#   if response.status_code == 200:
+#     node = json.loads(response.text)
+#     businessLine = node['id']
+#     print(businessLine)
+#     store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id)
+#     return redirect(url_for('onboard_success', LEMid=lem_id))
+#   else:
+#     return response.text
+
+# def store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id):
+def store_create(
                 lem_id,
                 reference,
                 description,
-                channel,
                 shopperStatement,
                 phoneNumber,
                 line1,
@@ -24,48 +78,9 @@ def business_line(industryCode,
                 country,
                 schemes,
                 currencies,
-                countries):
-  url = "https://kyc-test.adyen.com/lem/v2/businessLines"
+                countries,
+                businessLine):
 
-  user = get_lem_user()
-  password = get_lem_pass()
-
-  basic = (user, password)
-  platform = "test" # change to live for production
-
-  headers = {
-      'Content-Type': 'application/json'
-  }
-
-  payload = {
-    "capability": "receivePayments",
-    "salesChannels": [channel],
-    "industryCode": industryCode,
-    "legalEntityId": lem_id,
-    "webData": [
-        {
-        "webAddress": webAddress
-        }
-    ]
-    }
-
-  print("/businessLines request:\n" + str(payload))
-
-  response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
-
-  print("/businessLines response:\n" + response.text, response.status_code, response.reason)
-  
-  print(response.headers)
-  if response.status_code == 200:
-    node = json.loads(response.text)
-    businessLine = node['id']
-    print(businessLine)
-    store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id)
-    return redirect(url_for('onboard_success', LEMid=lem_id))
-  else:
-    return response.text
-
-def store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id):
   url = "https://management-test.adyen.com/v1/stores"
 
   apiKey = get_adyen_api_key()
@@ -103,14 +118,19 @@ def store_create(reference, description, shopperStatement, phoneNumber, line1, c
   
   node = json.loads(response.text)
   print(response.headers)
+  if response.status_code == 422:
+    node = json.loads(response.text)
+    reason = node['invalidFields'][0]['InvalidField']['message']
+    print(reason)
+    return reason
   if response.status_code == 201 or 200:
       storeId = node['id']
-      storeDB = database.insert_store(lem_id, storeId)
+      storeDB = database.insert_store(storeId, lem_id, reference)
       print(storeId)
       for scheme in schemes:
         payment_method(scheme, businessLine, storeId, currencies, countries)
         continue
-        return response.text
+      return redirect(url_for('onboard_success', LEMid=lem_id))
   else:
     return response.text
 

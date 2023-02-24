@@ -11,6 +11,7 @@ from main.config import *
 from main.onboard import go_to_link
 from main.register import legal_entity
 from main.store import *
+from main.business import *
 
 legalName =""
 
@@ -88,19 +89,25 @@ def create_app():
 
     @app.route('/testButton/<lem>', methods=['POST', 'GET'])
     def test_button(lem):
+        # database.delete_table()
+        # database.force_create_table()
         lem_id = lem
         result = database.get_stores(lem_id)
         print("this is the result ", result)
+        res = [sub['storeName'] for sub in result ]
         # existingStoreNames = [item[0] for item in result]
         # print(existingStoreNames)
-        if result:
-            print(result[0]['storeName'])
-        return render_template('onboard-success.html')
+        # if result:
+        #     print(result[0]['storeName'])
+        return render_template('onboard-success.html', result=res)
 
     @app.route('/result/success', methods=['GET', 'POST'])
     def onboard_success():
         lem = request.args['LEMid']
-        return render_template('onboard-success.html', lem=lem, newUser=True)
+        result = database.get_stores(lem)
+        print("this is the result ", result)
+        res = [sub['storeName'] for sub in result ]
+        return render_template('onboard-success.html', lem=lem, newUser=True, result=res)
 
     @app.route('/onboard/<lem>', methods=['POST', 'GET'])
     def onboard_link(lem):
@@ -108,26 +115,44 @@ def create_app():
             LEMid = lem
         return go_to_link(LEMid)
 
+    @app.route('/businessData/<lem>', methods=['POST'])
+    def new_business(lem):
+        if request.method == 'POST':
+            lem_id = lem
+            channel = request.form['channel']
+            webAddress = request.form['webAddress']
+            industryCode = request.form['industryCode']
+
+            redirect_response = business_line(
+                industryCode,
+                webAddress,
+                lem_id,
+                channel)
+
+        return redirect_response
+            # return render_template('onboard-success.html', lem=lem)
+
     @app.route('/storeData/<lem>', methods=['POST'])
     def new_store(lem):
         if request.method == 'POST':
             # lem_id = request.base_url
             # print(lem_id)
 
-
             # get variables from request
             lem_id = lem
+            businessData = database.get_business(lem_id)
+
             reference = request.form['reference']
             description = request.form['description']
-            channel = request.form['channel']
-            webAddress = request.form['webAddress']
+            # channel = request.form['channel']
+            # webAddress = request.form['webAddress']
             shopperStatement = request.form['shopperStatement']
             phoneNumber = request.form['phoneNumber']
             line1 = request.form['line1']
             city = request.form['city']
             postalCode = request.form['postalCode']
             country = request.form['country']
-            industryCode = request.form['industryCode']
+            # industryCode = request.form['industryCode']
             schemes = []
             if request.form.get('visa'):
                 schemes.append('visa')
@@ -152,13 +177,10 @@ def create_app():
             
 
             # create business line, store, payment methods and get redirect response
-            redirect_response = business_line(
-                industryCode,
-                webAddress,
+            redirect_response = store_create(
                 lem_id,
                 reference,
                 description,
-                channel,
                 shopperStatement,
                 phoneNumber,
                 line1,
@@ -167,7 +189,8 @@ def create_app():
                 country,
                 schemes,
                 currencies,
-                countries)
+                countries,
+                businessData)
 
             return redirect_response
 

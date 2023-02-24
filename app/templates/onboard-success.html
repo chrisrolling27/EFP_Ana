@@ -146,8 +146,11 @@
                           <!-- Stores Section -->
                           <div class="tab-pane fade store-edit pt-3" href="/getStores" id="store-edit">
                           <!-- Pending Requests Card Example -->
-                          {% if newUser!= None %}
+                          <ul>
+                          
+                          <!-- <li> -->
                           <div class="row">
+                            {% for store in result %}
                             <div class="col-6 store-card">
                               <div class="card border-left-warning shadow h-100 py-2">
                                   <div class="card-body store-padding">
@@ -158,14 +161,23 @@
                                               
                                               <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <span data-feather="shopping-cart" stroke-width="3" class="align-text-centre" width="36"></span>
-                                                  Store Name</div>
+                                                  {{ store }}</div>
                                           </div>
                                       </div>
                                   </div>
                               </div>
                             </div>
+                            {% endfor %}
                           </div>
-                          {% endif %}
+                          
+                          <!-- </li> -->
+                          </ul>
+                            <div class="col-12 store-card">
+                              <button type="button" onclick="showBL()" class="btn btn-warning btn-lg btn-block">
+                                <span data-feather="plus" stroke-width="3" class="align-text-centre"></span>
+                                Line of business
+                              </button>
+                            </div>
                             <div class="col-12 store-card">
                               <button type="button" onclick="showForm()" class="btn btn-warning btn-lg btn-block">
                                 <span data-feather="plus" stroke-width="3" class="align-text-centre"></span>
@@ -178,6 +190,35 @@
                               </a>
                             </div>
                              <!-- DataTales Example -->
+                             <div id="newBLForm" style="display: none;">
+                              <form action="/businessData/{{lem}}" method="POST" class="row g-3">
+                                <hr/>
+                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Business Line
+                                  <span data-feather="shopping-bag" stroke-width="3" class="align-text-centre"></span>
+                                </h5>
+                                <div class="col-md-6">
+                                  <label for="inputChannel" class="form-label">Sales channel</label>
+                                  <select id="inputChannel" class="form-select" name="channel" required>
+                                    <option selected>Choose...</option>
+                                    <option>pos</option>
+                                    <option>eCommerce</option>
+                                    <option>payByLink</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="inputMCC" class="form-label">Industry Code</label>
+                                  <input type="text" class="form-control" id="inputMCC" name="industryCode" required>
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="inputWeb" class="form-label">Website</label>
+                                  <input type="text" class="form-control" id="inputWeb" name="webAddress">
+                                </div>
+                                <hr/>
+                                <div class="col-12">
+                                  <button type="submit" class="btn btn-dark btn-lg btn-block">Submit</button>
+                                </div>
+                              </form>
+                            </div>
                             <div id="newStoreForm" style="display: none;">
                               <form action="/storeData/{{lem}}" method="POST" class="row g-3">
                                 <hr/>
@@ -193,29 +234,12 @@
                                   <input type="text" class="form-control" id="inputStoreDes" name="description" required>
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="inputChannel" class="form-label">Sales channel</label>
-                                  <select id="inputChannel" class="form-select" name="channel" required>
-                                    <option selected>Choose...</option>
-                                    <option>pos</option>
-                                    <option>eCommerce</option>
-                                    <option>payByLink</option>
-                                  </select>
-                                </div>
-                                <div class="col-md-6">
                                   <label for="inputShopperS" class="form-label">Shopper Statement</label>
                                   <input type="text" class="form-control" id="inputShopperS" name="shopperStatement" required>
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="inputMCC" class="form-label">Industry Code</label>
-                                  <input type="text" class="form-control" id="inputMCC" name="industryCode" required>
-                                </div>
-                                <div class="col-md-6">
                                   <label class="form-label" for="inputPhone">Phone number</label>
                                   <input type="tel" id="inputPhone" name="phoneNumber" class="form-control" />
-                                </div>
-                                <div class="col-md-12">
-                                  <label for="inputWeb" class="form-label">Website</label>
-                                  <input type="text" class="form-control" id="inputWeb" name="webAddress">
                                 </div>
                                 <div class="col-md-12">
                                   <label for="inputline1" class="form-label">Address</label>
@@ -516,7 +540,21 @@
       console.log(url_lem)
 
       function showForm() {
-        document.getElementById('newStoreForm').style.display = "block";
+        let div = document.getElementById('newStoreForm').style.display
+        if(div == 'none') {
+          document.getElementById('newStoreForm').style.display = "block";
+        } else {
+          document.getElementById('newStoreForm').style.display = "none";
+        }
+      }
+
+      function showBL() {
+        let div = document.getElementById('newBLForm').style.display
+        if(div == 'none') {
+          document.getElementById('newBLForm').style.display = "block";
+        } else {
+          document.getElementById('newBLForm').style.display = "none";
+        }
       }
     </script>
 {% endblock %}
