@@ -63,9 +63,9 @@ def get_user(email, password):
 #     sql_delete_table = "DROP TABLE stores"
 #     _execute_sql(sql_delete_table, False)
 
-# def force_create_table():
-#     sql_create_table = """CREATE TABLE stores(store_id PRIMARY KEY, lem_id NOT NULL, reference NOT NULL);"""
-#     _execute_sql(sql_create_table, False)
+def force_create_table():
+    sql_create_table = """CREATE TABLE business(business_line PRIMARY KEY, lem_id NOT NULL, data NOT NULL);"""
+    _execute_sql(sql_create_table, False)
 
 # function to insert business lines association into the database table
 def insert_business(business_line, lem_id, data):
