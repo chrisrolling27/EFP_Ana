@@ -101,6 +101,11 @@ def create_app():
         #     print(result[0]['storeName'])
         return render_template('onboard-success.html', result=res)
 
+    @app.route('/forceCreate', methods=['POST', 'GET'])
+    def force_create():
+        database.force_create_table()
+        return render_template('onboard-success.html')
+
     @app.route('/result/success', methods=['GET', 'POST'])
     def onboard_success():
         lem = request.args['LEMid']
