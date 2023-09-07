@@ -23,7 +23,7 @@ def go_to_link(LEMid):
   }
 
   payload = {
-  "redirectUrl": "http://localhost:8080",
+  "redirectUrl": "http://localhost:3000",
   "themeId": "ONBT422JV223222J5HC92RZ3RQ3RQX"
   }
   print("url:" + str(url))
