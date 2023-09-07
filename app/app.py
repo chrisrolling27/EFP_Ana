@@ -114,6 +114,14 @@ def create_app():
         res = [sub['storeName'] for sub in result ]
         return render_template('onboard-success.html', lem=lem, newUser=True, result=res)
 
+    @app.route('/dashboard', methods=['GET', 'POST'])
+    def dashboard():
+        lem = request.args['LEMid']
+        result = database.get_stores(lem)
+        print("this is the result ", result)
+        res = [sub['storeName'] for sub in result ]
+        return render_template('dashboard.html', lem=lem, newUser=False, result=res)
+
     @app.route('/onboard/<lem>', methods=['POST', 'GET'])
     def onboard_link(lem):
         if request.method == 'POST':
