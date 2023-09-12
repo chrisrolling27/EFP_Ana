@@ -95,6 +95,8 @@ body {
   .navbar .form-control {
 	padding: .75rem 1rem;
   }
+
+  .navbar-nav
   
   .form-control-dark {
 	color: #111	;
@@ -252,7 +254,7 @@ body {
   }
 
   .pagetitle {
-	padding-top: 20px;
+	padding-top: 10px;
   }
 
 /* Alert */
@@ -365,4 +367,104 @@ body {
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
 }
 
-  
+.creditCardPreview {
+  grid-area: card;
+  width: 270px;
+  height: 172px;
+  min-width: 0;
+  min-height: 0;
+  color: #000;
+  background: #F6C953;
+  margin-left: 55px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  justify-self: right;
+  align-self: start;
+  display: grid;
+  justify-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  grid-template: repeat(4, 1fr)/19px repeat(4, 1fr) 19px;
+  grid-template-areas: ". . . visa visa ."
+ ". chip . visa visa . "
+ ". no no no no ."
+ ". name name name year .";
+}
+
+.creditCardPreview .creditCatd > * {
+  overflow: hidden;
+}
+
+.creditCardPreview .visaLogo {
+  grid-area: visa;
+  overflow: hidden;
+  justify-self: right;
+}
+
+.creditCardPreview .visaLogo svg {
+  height: 42px;
+}
+
+.creditCardPreview .chipLogo {
+  grid-area: chip;
+  overflow: hidden;
+  width: 38px;
+  height: 30px;
+  justify-self: left;
+}
+
+.creditCardPreview ul {
+  grid-area: no;
+  list-style-type: none;
+  justify-self: stretch;
+  display: grid;
+  grid-template: 1fr/repeat(1, 1fr);
+}
+
+.creditCardPreview ul li {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+  word-spacing: 3px;
+}
+
+.creditCardPreview .name {
+  grid-area: name;
+  justify-self: left;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  padding-bottom: 5px;
+  font-weight: 300;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+}
+
+.creditCardPreview .year {
+  grid-area: year;
+  justify-self: right;
+  font-size: 11.5px;
+  font-weight: lighter;
+  font-family: "Roboto Condensed", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2.4px;
+  padding-bottom: 5px;
+  font-weight: 300;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+}
+
+.card-form-label {
+  color: #616161;
+  font-size: 12px;
+}
+
+.form-select-sm {
+  color: #3F3F3F;
+  font-size: .8rem;
+}

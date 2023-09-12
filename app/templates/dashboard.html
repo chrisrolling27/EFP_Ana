@@ -3,50 +3,7 @@
 {% block content %}
     <title>Confirmation</title>
 
-    <div class="container-fluid">
         <div class="row">
-          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky pt-3 sidebar-sticky">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}?LEMid={{ request.args['LEMid'] }}">
-                    <span data-feather="home" class="align-text-bottom"></span>
-                    Dashboard
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('onboard_success') }}">
-                    <span data-feather="trending-up" class="align-text-bottom"></span>
-                    Sales & Payouts
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span data-feather="credit-card" class="align-text-bottom"></span>
-                    Cards
-                  </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('onboard_success')}}?LEMid={{ request.args['LEMid'] }}">
-                    <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                    Bank account
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('onboard_success')}}?LEMid={{ request.args['LEMid'] }}">
-                    <span data-feather="user" class="align-text-bottom"></span>
-                    Profile
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <span data-feather="file-text" class="align-text-bottom"></span>
-                    Reports
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             {% if newUser %}
             <div class="alert alert-success align-items-center alert-dismissible fade show" role="alert">
@@ -56,7 +13,7 @@
             </div>
             {% endif %}
             <div class="pagetitle">
-                <h1>Dashboard</h1>
+                <h1>Overview</h1>
                 <h5 class="mb-5">Hi Jonh Doe, here's a summary of your business</h5>
               </div><!-- End Page Title -->
             <div class="status-container">
@@ -232,14 +189,14 @@
               <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-header">
                   <h5 id="offcanvasRightLabel">Create new card</h5>
+                  <hr>
                   <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <div class="card-body p-4 p-lg-5 text-black">
         
-                        <form action="/ledata" method="POST" class="row g-3">
+                        <form action="/issue/{{lem}}" method="POST" class="row g-3">
             
-                            <div class="creditCard">
+                            <div class="creditCardPreview">
                                 <div class="visaLogo">
                                   <svg class="visa" enable-background="new 0 0 291.764 291.764" version="1.1" viewbox="5 70 290 200" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
                                     <path class="svgcolor" d="m119.26 100.23l-14.643 91.122h23.405l14.634-91.122h-23.396zm70.598 37.118c-8.179-4.039-13.193-6.765-13.193-10.896 0.1-3.756 4.24-7.604 13.485-7.604 7.604-0.191 13.193 1.596 17.433 3.374l2.124 0.948 3.182-19.065c-4.623-1.787-11.953-3.756-21.007-3.756-23.113 0-39.388 12.017-39.489 29.204-0.191 12.683 11.652 19.721 20.515 23.943 9.054 4.331 12.136 7.139 12.136 10.987-0.1 5.908-7.321 8.634-14.059 8.634-9.336 0-14.351-1.404-21.964-4.696l-3.082-1.404-3.273 19.813c5.498 2.444 15.609 4.595 26.104 4.705 24.563 0 40.546-11.835 40.747-30.152 0.08-10.048-6.165-17.744-19.659-24.035zm83.034-36.836h-18.108c-5.58 0-9.82 1.605-12.236 7.331l-34.766 83.509h24.563l6.765-18.08h27.481l3.51 18.153h21.664l-18.873-90.913zm-26.97 54.514c0.474 0.046 9.428-29.514 9.428-29.514l7.13 29.514h-16.558zm-160.86-54.796l-22.931 61.909-2.498-12.209c-4.24-14.087-17.533-29.395-32.368-36.999l20.998 78.33h24.764l36.799-91.021h-24.764v-0.01z" fill="#000"></path>
@@ -259,44 +216,47 @@
                                 <h4 class="year">03/23</h4>
                               </div>
                             <div class="col-md-12">
-                              <label for="inputLegalName" class="form-label">Card holder name</label>
-                              <input type="text" class="form-control" id="inputLegalName" name="legalName" required>
+                              <label for="inputCardHolderName" class="card-form-label">Card holder name</label>
+                              <input type="text" class="form-control form-control-sm" id="inputCardHolderName" name="cardHolderName" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="inputCountry" class="form-label">Card type</label>
-                                <select id="inputCountry" class="form-select" name="country" required>
-                                  <option selected>Choose...</option>
-                                  <option>Physical</option>
+                            <div class="col-md-12">
+                                <label for="inputCardType" class="card-form-label">Card type</label>
+                                <select id="inputCardType" class="form-select form-select-sm" name="cardType" required>
+                                  <option selected>Physical</option>
                                   <option>Virtual</option>
                                 </select>
                               </div>
-                            <div class="col-md-6">
-                              <label for="inputCurrency" class="form-label">Card scheme</label>
-                              <select id="inputCurrency" class="form-select" name="currency" required>
-                                <option selected>Choose...</option>
-                                <option>Visa</option>
+                            <div class="col-md-12">
+                              <label for="inputCardScheme" class="card-form-label">Card scheme</label>
+                              <select id="inputCardScheme" class="form-select form-select-sm" name="cardScheme" required>
+                                <option selected><img alt="visaLogo" src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/mc.svg"></img>Visa</option>
                                 <option>Mastercard</option>
                               </select>
                             </div>
                             <div class="col-md-12">
-                              <label for="inputEmail" class="form-label">Delivery address</label>
-                              <input type="email" class="form-control" id="inputEmail" name="email" required>
+                              <label for="inputDelivery" class="card-form-label">Delivery address</label>
+                              <input type="text" class="form-control form-control-sm" id="inputDelivery" name="delivery">
                             </div>
-                            <div class="col-md-12">
-                                <label for="inputPass" class="form-label">Budget</label>
-                                <input type="password" class="form-control" id="inputPass" name="password" required>
-                              </div>
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-dark btn-lg btn-block">Create</button>
+                            <div class="col-md-8">
+                                <label for="inputBudget" class="card-form-label">Budget</label>
+                                <input type="text" class="form-control form-control-sm" id="inputBudget" name="budget" placeholder="£">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputBudget" class="card-form-label"> </label>
+                                <select id="inputBudgetTime" class="form-select form-select-sm" name="budgetTime">
+                                    <option selected>Monthly</option>
+                                    <option>Daily</option>
+                                    <option>Weekly</option>
+                                </select>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-5">
+                              <button type="submit" class="btn btn-dark btn-sm btn-block">   Create   </button>
                             </div>
                           </form>
-    
-                    </div>
                 </div>
               </div>
           </main>
         </div>
-    </div>
     <script src="https://unpkg.com/feather-icons"></script>
     <!-- <script>
       $(document).ready(function() {
