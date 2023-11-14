@@ -1,0 +1,306 @@
+
+
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <title>Confirmation</title>
+
+        <div class="row">
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            {% if newUser %}
+            <div class="alert alert-success align-items-center alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                <strong>Welcome!</strong> Your account was created successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            <div class="pagetitle">
+                <h1>Cards</h1>
+                <h5 class="mb-5">Hi Jonh Doe, here's a summary of your cards' usage</h5>
+              </div><!-- End Page Title -->
+            <div class="status-container">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </symbol>
+                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </symbol>
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </symbol>
+                </svg>
+            </div>
+            <section class="section profile">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body pt-3">
+                              <!-- Bordered Tabs -->
+                              <div class="tab-content pt-2">
+                                  <div class="row">
+                                <div class="col" id="card-overview">
+                                      <div class="d-flex flex-column align-items-end">
+                                          <button type="submit" class="btn btn-outline-dark ml-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                              <span data-feather="plus" class="align-text-centre"></span>Create new card</button>
+                                      </div>
+                                      <!-- Slider main container -->
+                                        <div class="swiper mySwiper">
+                                          <div class="swiper-wrapper">
+                                            <!-- Additional required wrapper -->
+                                            {% if card_data == 'no_cards' %}
+                                              <div class="wrapper">
+                                                <div class="creditCard in-wrap dimmed mx-4">
+                                                <div class="row mx-3">
+                                                  <div class="chipLogo col-6 d-flex justify-content-start">
+                                                    <img alt="banana image" src="{{ url_for('static', filename='img/banana.png') }}"/>
+                                                  </div>
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg class="visa" enable-background="new 0 0 291.764 291.764" version="1.1" viewbox="5 70 290 200" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                                      <path class="svgcolor" d="m119.26 100.23l-14.643 91.122h23.405l14.634-91.122h-23.396zm70.598 37.118c-8.179-4.039-13.193-6.765-13.193-10.896 0.1-3.756 4.24-7.604 13.485-7.604 7.604-0.191 13.193 1.596 17.433 3.374l2.124 0.948 3.182-19.065c-4.623-1.787-11.953-3.756-21.007-3.756-23.113 0-39.388 12.017-39.489 29.204-0.191 12.683 11.652 19.721 20.515 23.943 9.054 4.331 12.136 7.139 12.136 10.987-0.1 5.908-7.321 8.634-14.059 8.634-9.336 0-14.351-1.404-21.964-4.696l-3.082-1.404-3.273 19.813c5.498 2.444 15.609 4.595 26.104 4.705 24.563 0 40.546-11.835 40.747-30.152 0.08-10.048-6.165-17.744-19.659-24.035zm83.034-36.836h-18.108c-5.58 0-9.82 1.605-12.236 7.331l-34.766 83.509h24.563l6.765-18.08h27.481l3.51 18.153h21.664l-18.873-90.913zm-26.97 54.514c0.474 0.046 9.428-29.514 9.428-29.514l7.13 29.514h-16.558zm-160.86-54.796l-22.931 61.909-2.498-12.209c-4.24-14.087-17.533-29.395-32.368-36.999l20.998 78.33h24.764l36.799-91.021h-24.764v-0.01z" fill="#000"></path>
+                                                      <path class="svgtipcolor" d="m51.916 111.98c-1.787-6.948-7.486-11.634-15.226-11.734h-36.316l-0.374 1.686c28.329 6.984 52.107 28.474 59.821 48.688l-7.905-38.64z" fill="#000"></path>
+                                                    </svg>
+                                                  </div>
+                                                  <h4 class="card-label col-12 mt-3">Card Number</h4>
+                                                  <h4 id="pan" class="card-number col-12">****    ****    ****    0000</li>
+                                                  <h4 class="card-label col-12">Cardholder</h4>
+                                                  <h4 id="name" class="card-data col-12">Ana Banana</h4>
+                                                  <h4 class="card-label col-6">Exp. Date</h4>
+                                                  <h4 class="card-label col-6">CVV</h4>
+                                                  <h4 id="year" class="card-data col-6">00 / 0000</h4>
+                                                  <h4 id="cvv" class="card-data col-6">***</h4>
+                                                </div>
+                                                </div>
+                                                <div class="create-card">
+                                                  <button type="submit" class="btn btn-outline-dark ml-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                                    <span data-feather="plus" class="align-text-centre"></span>Create a card</button>
+                                                </div>
+                                                
+                                              </div>
+                                            {% else %}
+                                            <!-- Slides -->
+                                            {% if card_data[0] %}
+                                            <div class="swiper-slide">
+                                              <div class="creditCard in-wrap mx-4">
+                                                <div class="row mx-3">
+                                                  <div class="chipLogo col-6 d-flex justify-content-start">
+                                                    <img alt="banana image" src="{{ url_for('static', filename='img/banana.png') }}"/>
+                                                  </div>
+                                                  {% if card_data[0][4] == 'visa' %}
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg class="visa" enable-background="new 0 0 291.764 291.764" version="1.1" viewbox="5 70 290 200" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                                      <path class="svgcolor" d="m119.26 100.23l-14.643 91.122h23.405l14.634-91.122h-23.396zm70.598 37.118c-8.179-4.039-13.193-6.765-13.193-10.896 0.1-3.756 4.24-7.604 13.485-7.604 7.604-0.191 13.193 1.596 17.433 3.374l2.124 0.948 3.182-19.065c-4.623-1.787-11.953-3.756-21.007-3.756-23.113 0-39.388 12.017-39.489 29.204-0.191 12.683 11.652 19.721 20.515 23.943 9.054 4.331 12.136 7.139 12.136 10.987-0.1 5.908-7.321 8.634-14.059 8.634-9.336 0-14.351-1.404-21.964-4.696l-3.082-1.404-3.273 19.813c5.498 2.444 15.609 4.595 26.104 4.705 24.563 0 40.546-11.835 40.747-30.152 0.08-10.048-6.165-17.744-19.659-24.035zm83.034-36.836h-18.108c-5.58 0-9.82 1.605-12.236 7.331l-34.766 83.509h24.563l6.765-18.08h27.481l3.51 18.153h21.664l-18.873-90.913zm-26.97 54.514c0.474 0.046 9.428-29.514 9.428-29.514l7.13 29.514h-16.558zm-160.86-54.796l-22.931 61.909-2.498-12.209c-4.24-14.087-17.533-29.395-32.368-36.999l20.998 78.33h24.764l36.799-91.021h-24.764v-0.01z" fill="#000"></path>
+                                                      <path class="svgtipcolor" d="m51.916 111.98c-1.787-6.948-7.486-11.634-15.226-11.734h-36.316l-0.374 1.686c28.329 6.984 52.107 28.474 59.821 48.688l-7.905-38.64z" fill="#000"></path>
+                                                    </svg>
+                                                  </div>
+                                                  {% else %}
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 81 49" fill="none">
+                                                      <ellipse cx="25.4602" cy="24.665" rx="24.8153" ry="24.335" fill="black" fill-opacity="0.67"/>
+                                                      <ellipse cx="55.2385" cy="24.665" rx="24.8153" ry="24.335" fill="black" fill-opacity="0.7"/>
+                                                    </svg>
+                                                  </div>
+                                                  {% endif %}
+                                                  <h4 class="card-label col-12 mt-3">Card Number</h4>
+                                                  <h4 id="pan" class="card-number col-12">****    ****    ****    {{ card_data[0][0] }}</li>
+                                                  <h4 class="card-label col-12">Cardholder</h4>
+                                                  <h4 id="name" class="card-data col-12">{{ card_data[0][3] }}</h4>
+                                                  <h4 class="card-label col-6">Exp. Date</h4>
+                                                  <h4 class="card-label col-6">CVV</h4>
+                                                  <h4 id="year" class="card-data col-6">{{ card_data[0][1] }} / {{ card_data[0][2] }}</h4>
+                                                  <h4 id="cvv" class="card-data col-6">***</h4>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {% else %}
+                                            {% endif %}
+                                            {% if card_data[1] %}
+                                            <div class="swiper-slide">
+                                              <div class="creditCard second-card in-wrap mx-4">
+                                                <div class="row mx-3">
+                                                  <div class="chipLogo col-6 d-flex justify-content-start">
+                                                    <img alt="banana image" src="{{ url_for('static', filename='img/white-banana.png') }}"/>
+                                                  </div>
+                                                  {% if card_data[1][4] == 'visa' %}
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg class="visa" enable-background="new 0 0 291.764 291.764" version="1.1" viewbox="5 70 290 200" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                                      <path class="svgcolor" d="m119.26 100.23l-14.643 91.122h23.405l14.634-91.122h-23.396zm70.598 37.118c-8.179-4.039-13.193-6.765-13.193-10.896 0.1-3.756 4.24-7.604 13.485-7.604 7.604-0.191 13.193 1.596 17.433 3.374l2.124 0.948 3.182-19.065c-4.623-1.787-11.953-3.756-21.007-3.756-23.113 0-39.388 12.017-39.489 29.204-0.191 12.683 11.652 19.721 20.515 23.943 9.054 4.331 12.136 7.139 12.136 10.987-0.1 5.908-7.321 8.634-14.059 8.634-9.336 0-14.351-1.404-21.964-4.696l-3.082-1.404-3.273 19.813c5.498 2.444 15.609 4.595 26.104 4.705 24.563 0 40.546-11.835 40.747-30.152 0.08-10.048-6.165-17.744-19.659-24.035zm83.034-36.836h-18.108c-5.58 0-9.82 1.605-12.236 7.331l-34.766 83.509h24.563l6.765-18.08h27.481l3.51 18.153h21.664l-18.873-90.913zm-26.97 54.514c0.474 0.046 9.428-29.514 9.428-29.514l7.13 29.514h-16.558zm-160.86-54.796l-22.931 61.909-2.498-12.209c-4.24-14.087-17.533-29.395-32.368-36.999l20.998 78.33h24.764l36.799-91.021h-24.764v-0.01z" fill="#000"></path>
+                                                      <path class="svgtipcolor" d="m51.916 111.98c-1.787-6.948-7.486-11.634-15.226-11.734h-36.316l-0.374 1.686c28.329 6.984 52.107 28.474 59.821 48.688l-7.905-38.64z" fill="#fff"></path>
+                                                    </svg>
+                                                  </div>
+                                                  {% else %}
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg class="mcLogo"xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 81 49" fill="none">
+                                                      <ellipse cx="25.4602" cy="24.665" rx="24.8153" ry="24.335" fill="white" fill-opacity="0.67"/>
+                                                      <ellipse cx="55.2385" cy="24.665" rx="24.8153" ry="24.335" fill="white" fill-opacity="0.7"/>
+                                                    </svg>
+                                                  </div>
+                                                  {% endif %}
+                                                  <h4 class="card-label col-12 mt-3">Card Number</h4>
+                                                  <h4 id="pan" class="card-number col-12">****    ****    ****    {{ card_data[1][0] }}</li>
+                                                  <h4 class="card-label col-12">Cardholder</h4>
+                                                  <h4 id="name" class="card-data col-12">{{ card_data[1][3] }}</h4>
+                                                  <h4 class="card-label col-6">Exp. Date</h4>
+                                                  <h4 class="card-label col-6">CVV</h4>
+                                                  <h4 id="year" class="card-data col-6">{{ card_data[1][1] }} / {{ card_data[1][2] }}</h4>
+                                                  <h4 id="cvv" class="card-data col-6">***</h4>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {% else %}
+                                            {% endif %}
+                                            {% if card_data[2] %}
+                                            <div class="swiper-slide">
+                                              <div class="creditCard third-card in-wrap mx-4">
+                                                <div class="row mx-3">
+                                                  <div class="chipLogo col-6 d-flex justify-content-start">
+                                                    <img alt="banana image" src="{{ url_for('static', filename='img/banana.png') }}"/>
+                                                  </div>
+                                                  {% if card_data[2][4] == 'visa' %}
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg class="visa" enable-background="new 0 0 291.764 291.764" version="1.1" viewbox="5 70 290 200" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                                      <path class="svgcolor" d="m119.26 100.23l-14.643 91.122h23.405l14.634-91.122h-23.396zm70.598 37.118c-8.179-4.039-13.193-6.765-13.193-10.896 0.1-3.756 4.24-7.604 13.485-7.604 7.604-0.191 13.193 1.596 17.433 3.374l2.124 0.948 3.182-19.065c-4.623-1.787-11.953-3.756-21.007-3.756-23.113 0-39.388 12.017-39.489 29.204-0.191 12.683 11.652 19.721 20.515 23.943 9.054 4.331 12.136 7.139 12.136 10.987-0.1 5.908-7.321 8.634-14.059 8.634-9.336 0-14.351-1.404-21.964-4.696l-3.082-1.404-3.273 19.813c5.498 2.444 15.609 4.595 26.104 4.705 24.563 0 40.546-11.835 40.747-30.152 0.08-10.048-6.165-17.744-19.659-24.035zm83.034-36.836h-18.108c-5.58 0-9.82 1.605-12.236 7.331l-34.766 83.509h24.563l6.765-18.08h27.481l3.51 18.153h21.664l-18.873-90.913zm-26.97 54.514c0.474 0.046 9.428-29.514 9.428-29.514l7.13 29.514h-16.558zm-160.86-54.796l-22.931 61.909-2.498-12.209c-4.24-14.087-17.533-29.395-32.368-36.999l20.998 78.33h24.764l36.799-91.021h-24.764v-0.01z" fill="#000"></path>
+                                                      <path class="svgtipcolor" d="m51.916 111.98c-1.787-6.948-7.486-11.634-15.226-11.734h-36.316l-0.374 1.686c28.329 6.984 52.107 28.474 59.821 48.688l-7.905-38.64z" fill="#000"></path>
+                                                    </svg>
+                                                  </div>
+                                                  {% else %}
+                                                  <div class="visaLogo col-6 d-flex justify-content-end">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 81 49" fill="none">
+                                                      <ellipse cx="25.4602" cy="24.665" rx="24.8153" ry="24.335" fill="black" fill-opacity="0.67"/>
+                                                      <ellipse cx="55.2385" cy="24.665" rx="24.8153" ry="24.335" fill="black" fill-opacity="0.7"/>
+                                                    </svg>
+                                                  </div>
+                                                  {% endif %}
+                                                  <h4 class="card-label col-12 mt-3">Card Number</h4>
+                                                  <h4 id="pan" class="card-number col-12">****    ****    ****    {{ card_data[2][0] }}</li>
+                                                  <h4 class="card-label col-12">Cardholder</h4>
+                                                  <h4 id="name" class="card-data col-12">{{ card_data[2][3] }}</h4>
+                                                  <h4 class="card-label col-6">Exp. Date</h4>
+                                                  <h4 class="card-label col-6">CVV</h4>
+                                                  <h4 id="year" class="card-data col-6">{{ card_data[2][1] }} / {{ card_data[2][2] }}</h4>
+                                                  <h4 id="cvv" class="card-data col-6">***</h4>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {% else %}
+                                            {% endif %}
+                                            {% endif %}
+                                            </div>
+                                        
+                                        </div>
+                                <form action="/reveal/{{lem}}" method="POST">
+                                  <div class="d-flex flex-column align-items-end ">
+                                      <button id="eye-button" type="submit" class="btn btn-outline-dark">
+                                          <span id="eye-off" data-feather="eye-off" ></span>
+                                          <span id="eye" data-feather="eye" hidden></span>
+                                      </button>
+                                  </div>
+                                </form>
+                                </div>
+                              </div>
+      
+      
+                
+                
+                              </div><!-- End Bordered Tabs -->
+                
+                            </div>
+                          </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Table with hoverable rows</h5>
+
+                                <!-- Table with hoverable rows -->
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Position</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Start Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Brandon Jacob</td>
+                                        <td>Designer</td>
+                                        <td>28</td>
+                                        <td>2016-05-25</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Bridie Kessler</td>
+                                        <td>Developer</td>
+                                        <td>35</td>
+                                        <td>2014-12-05</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Ashleigh Langosh</td>
+                                        <td>Finance</td>
+                                        <td>45</td>
+                                        <td>2011-08-12</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Angus Grady</td>
+                                        <td>HR</td>
+                                        <td>34</td>
+                                        <td>2012-06-11</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>Raheem Lehner</td>
+                                        <td>Dynamic Division Officer</td>
+                                        <td>47</td>
+                                        <td>2011-04-19</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!-- End Table with hoverable rows -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+          </main>
+        </div>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <!-- <script>
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
+    });
+  </script> -->
+  <script>
+    feather.replace()
+    const urlParams = new URLSearchParams(window.location.search);
+    const url_lem = urlParams.get('LEMid');
+    console.log(url_lem)
+
+    function showForm() {
+      let div = document.getElementById('newStoreForm').style.display
+      if(div == 'none') {
+        document.getElementById('newStoreForm').style.display = "block";
+      } else {
+        document.getElementById('newStoreForm').style.display = "none";
+      }
+    }
+
+    function showBL() {
+      let div = document.getElementById('newBLForm').style.display
+      if(div == 'none') {
+        document.getElementById('newBLForm').style.display = "block";
+      } else {
+        document.getElementById('newBLForm').style.display = "none";
+      }
+    }
+
+
+  </script>
+{% endblock %}

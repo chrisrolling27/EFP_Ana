@@ -95,6 +95,8 @@ body {
   .navbar .form-control {
 	padding: .75rem 1rem;
   }
+
+  .navbar-nav
   
   .form-control-dark {
 	color: #111	;
@@ -252,7 +254,7 @@ body {
   }
 
   .pagetitle {
-	padding-top: 20px;
+	padding-top: 10px;
   }
 
 /* Alert */
@@ -283,6 +285,128 @@ body {
   margin-top: 30px;
   margin-bottom: 20px;
   border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.in-wrap {
+  margin: 0 !important;
+}
+
+.creditCard .creditCard > * {
+  overflow: hidden;
+}
+
+.creditCard .visaLogo {
+  margin-top: 20px;
+  padding-right: 30px;
+}
+
+.mcLogo {
+  height: 48px;
+}
+
+.creditCard .visaLogo svg {
+  height: 36px;
+}
+
+.creditCard .chipLogo {
+  margin-top: 20px;
+  height: 36px;
+  padding-left: 30px;
+}
+
+.creditCard .card-label {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 10px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  font-weight: 100;
+  margin-bottom: 0.2rem;
+}
+
+.creditCard .card-data {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  font-weight: 300;
+  text-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.6);
+}
+
+.creditCard .card-number {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 300;
+  text-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.6);
+}
+
+.second-card {
+  background: #B64E3A !important;
+  color: #fff !important;
+  text-shadow: 0px 0.5px 1px rgba(255, 255, 255, 0.731) !important;
+}
+
+.third-card {
+  background: #DB9284 !important;
+}
+
+.dimmed {
+  z-index: 10;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.5;
+}
+
+.wrapper {
+  position: relative;
+  width: 322px;
+  height: 206px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.create-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background:rgb(0, 0, 0);
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  opacity: 1;
+  z-index: 10;
+}
+
+.create-card .btn {
+  color: white;
+}
+
+
+.creditCardPreview {
+  grid-area: card;
+  width: 270px;
+  height: 172px;
+  min-width: 0;
+  min-height: 0;
+  color: #000;
+  background: #F6C953;
+  margin-left: 55px;
+  margin-bottom: 20px;
+  border-radius: 8px;
   justify-self: right;
   align-self: start;
   display: grid;
@@ -297,30 +421,29 @@ body {
  ". name name name year .";
 }
 
-.creditCard .creditCatd > * {
+.creditCardPreview .creditCatd > * {
   overflow: hidden;
 }
 
-.creditCard .visaLogo {
+.creditCardPreview .visaLogo {
   grid-area: visa;
   overflow: hidden;
   justify-self: right;
 }
 
-.creditCard .visaLogo svg {
+.creditCardPreview .visaLogo svg {
   height: 42px;
 }
 
-.creditCard .chipLogo {
+.creditCardPreview .chipLogo {
   grid-area: chip;
   overflow: hidden;
   width: 38px;
   height: 30px;
   justify-self: left;
-  margin-top: 10px;
 }
 
-.creditCard ul {
+.creditCardPreview ul {
   grid-area: no;
   list-style-type: none;
   justify-self: stretch;
@@ -328,22 +451,22 @@ body {
   grid-template: 1fr/repeat(1, 1fr);
 }
 
-.creditCard ul li {
+.creditCardPreview ul li {
   display: inline-block;
-  font-size: 18px;
+  font-size: 12px;
   letter-spacing: 2px;
   text-align: left;
   font-family: "Roboto", sans-serif;
   font-weight: 100;
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
-  word-spacing: 3.7px;
+  word-spacing: 3px;
 }
 
-.creditCard .name {
+.creditCardPreview .name {
   grid-area: name;
   justify-self: left;
   font-family: "Roboto Condensed", sans-serif;
-  font-size: 12.8px;
+  font-size: 11px;
   font-weight: lighter;
   text-transform: uppercase;
   letter-spacing: 1.3px;
@@ -352,10 +475,10 @@ body {
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
 }
 
-.creditCard .year {
+.creditCardPreview .year {
   grid-area: year;
   justify-self: right;
-  font-size: 14px;
+  font-size: 11.5px;
   font-weight: lighter;
   font-family: "Roboto Condensed", sans-serif;
   text-transform: uppercase;
@@ -365,4 +488,72 @@ body {
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
 }
 
-  
+.card-form-label {
+  color: #616161;
+  font-size: 12px;
+}
+
+.form-select-sm {
+  color: #3F3F3F;
+  font-size: .8rem;
+}
+
+
+.swiper {
+  width: 322px;
+  height: 206px;
+}
+
+.swiper-creative {
+overflow: visible !important;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.swiper-slide:nth-child(1n) {
+  background-color: rgb(206, 17, 17);
+}
+
+.swiper-slide:nth-child(2n) {
+  background-color: rgb(0, 140, 255);
+}
+
+.swiper-slide:nth-child(3n) {
+  background-color: rgb(10, 184, 111);
+}
+
+.swiper-slide:nth-child(4n) {
+  background-color: rgb(211, 122, 7);
+}
+
+.swiper-slide:nth-child(5n) {
+  background-color: rgb(118, 163, 12);
+}
+
+.swiper-slide:nth-child(6n) {
+  background-color: rgb(180, 10, 47);
+}
+
+.swiper-slide:nth-child(7n) {
+  background-color: rgb(35, 99, 19);
+}
+
+.swiper-slide:nth-child(8n) {
+  background-color: rgb(0, 68, 255);
+}
+
+.swiper-slide:nth-child(9n) {
+  background-color: rgb(218, 12, 218);
+}
+
+.swiper-slide:nth-child(10n) {
+  background-color: rgb(54, 94, 77);
+}

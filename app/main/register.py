@@ -4,6 +4,7 @@ import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass
 from flask import Flask, render_template, url_for, redirect
+from main import database
 
 '''
 MoR onboarding Flow
@@ -112,11 +113,12 @@ def balance_account(AHid, currency, legalName, LEMid):
   
   LEMid = LEMid
   node = json.loads(response.text)
-  AHid = node['id']
-  print(AHid)
+  BAid = node['id']
+  print(BAid)
   print(response.headers)
   if response.status_code == 200:
     print(LEMid)
+    database.insert_ba(LEMid, BAid)
     return response.text
   else:
     return response.text

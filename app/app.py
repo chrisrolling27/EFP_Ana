@@ -5,6 +5,9 @@ from os.path import exists
 from Adyen.util import is_valid_hmac_notification
 from flask import Flask, render_template, send_from_directory, request
 
+import json
+import re
+
 from main import database
 from main import config
 from main.config import *
@@ -12,6 +15,8 @@ from main.onboard import go_to_link
 from main.register import legal_entity
 from main.store import *
 from main.business import *
+from main.card import *
+from main.reveal import *
 
 legalName =""
 
@@ -55,14 +60,18 @@ def create_app():
             # get location from redirect response
             location = redirect_response.location
 
+
             # if creation was successful, extract LEM ID
             if "/result/success?LEMid=" in location:
 
                 # substring LEM ID (ugly but works)
                 lem_id = location[22:]
 
-                # insert into database
+                # insert login data into database
                 database.insert_user(email, password, lem_id)
+
+                # insert legal entity data into database
+                database.insert_le(lem_id, legalName, country, currency)
 
             return redirect_response
 
@@ -89,17 +98,16 @@ def create_app():
 
     @app.route('/testButton/<lem>', methods=['POST', 'GET'])
     def test_button(lem):
-        # database.delete_table()
-        # database.force_create_table()
         lem_id = lem
         result = database.get_stores(lem_id)
         print("this is the result ", result)
         res = [sub['storeName'] for sub in result ]
-        # existingStoreNames = [item[0] for item in result]
-        # print(existingStoreNames)
-        # if result:
-        #     print(result[0]['storeName'])
         return render_template('onboard-success.html', result=res)
+
+    @app.route('/forceDelete', methods=['POST', 'GET'])
+    def force_delete():
+        database.force_delete_table()
+        return render_template('onboard-success.html')
 
     @app.route('/forceCreate', methods=['POST', 'GET'])
     def force_create():
@@ -118,15 +126,56 @@ def create_app():
     def dashboard():
         lem = request.args['LEMid']
         result = database.get_stores(lem)
-        print("this is the result ", result)
         res = [sub['storeName'] for sub in result ]
-        return render_template('dashboard.html', lem=lem, newUser=False, result=res)
+        print("this is the res ", res)
+        existing_cards = database.get_cards(lem)
+        if existing_cards == []:
+            card_data = 'no_cards'
+        else:
+            print("Existing cards", str(existing_cards[0][0]))
+            data = database.get_card_data(str(existing_cards[0][0]))
+            data_obj = data[0][0]
+            data_json = json.loads(data_obj)
+            last_four = data_json.get("card").get("lastFour")
+            month = data_json.get("card").get("expiration").get("month")
+            year = data_json.get("card").get("expiration").get("year")
+            cardholder = data_json.get("card").get("cardholderName")
+            brand = data_json.get("card").get("brand")
+            card_data = [last_four, month, year, cardholder, brand]
+        print(card_data)
+        return render_template('dashboard.html', lem=lem, newUser=False, result=res, card_data=card_data)
 
     @app.route('/onboard/<lem>', methods=['POST', 'GET'])
     def onboard_link(lem):
         if request.method == 'POST':
             LEMid = lem
         return go_to_link(LEMid)
+
+    @app.route('/getPub')
+    def get_pub_key():
+        redirect_response = get_key()
+        return redirect_response
+
+    @app.route('/reveal', methods=['POST', 'GET'])
+    def reveal_card():
+        jsdata = request.form['javascript_data']
+        print(jsdata)
+        data_json = json.loads(jsdata)
+        encrypted_aes = data_json.get("encrypted_aes")
+        lem = data_json.get("lem")
+        card_list = database.get_cards(lem)
+        pi = card_list[0]
+        pi_string = next(iter(pi))
+        redirect_response = reveal_pan(pi_string, encrypted_aes)
+        print(redirect_response)
+        print('the payment instrument here', pi_string)
+        return redirect_response
+
+    @app.route('/postmethod', methods = ['POST'])
+    def get_post_javascript_data():
+        jsdata = request.form['javascript_data']
+        print(jsdata)
+        return jsdata
 
     @app.route('/businessData/<lem>', methods=['POST'])
     def new_business(lem):
@@ -206,6 +255,60 @@ def create_app():
                 businessData)
 
             return redirect_response
+
+
+    @app.route('/issue/<lem>', methods=['POST'])
+    def new_card(lem):
+        if request.method == 'POST':
+            # get variables from database
+            result = database.get_le(lem)
+            print(result[0])
+            print(result[1])
+            country = result[1]
+
+            # get balance account ID from database
+            balance_account = database.get_ba(lem)
+            print(balance_account)
+
+            # get variables from UI request
+            card_holder = request.form['cardHolderName']
+            scheme = request.form['cardScheme']
+            factor = request.form['cardType']
+            if factor == 'Virtual':
+                factor = 'virtual'
+            if scheme == 'Mastercard': 
+                brand = 'mc'
+                variant = 'mc_debit_mdt'
+                # create payment instrument with all data
+                redirect_response = create_card(balance_account, brand, variant, card_holder, country, factor, lem)
+                print(redirect_response)
+
+                return redirect(url_for('dashboard', LEMid=lem))
+            else:
+                return render_template('checkout-failed.html')
+
+    @app.route('/cards', methods=['POST', 'GET'])
+    def cards_view():
+        lem = request.args['LEMid']
+        existing_cards = database.get_cards(lem)
+        if existing_cards == []:
+            card_data = 'no_cards'
+        else:
+            print("Existing cards", str(existing_cards[0][0]))
+            card_array = []
+            for card in existing_cards:
+                data = database.get_card_data(card[0])
+                data_obj = data[0][0]
+                data_json = json.loads(data_obj)
+                last_four = data_json.get("card").get("lastFour")
+                month = data_json.get("card").get("expiration").get("month")
+                year = data_json.get("card").get("expiration").get("year")
+                cardholder = data_json.get("card").get("cardholderName")
+                brand = data_json.get("card").get("brand")
+                each_card = [last_four, month, year, cardholder, brand]
+                card_array.append(each_card)
+                card_data = card_array
+        return render_template('cards.html', lem=lem, card_data=card_data)
 
 
     @app.route('/result/failed', methods=['GET'])
