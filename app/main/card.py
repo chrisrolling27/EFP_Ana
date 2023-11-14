@@ -55,8 +55,9 @@ def create_card(balance_account, brand, variant, card_holder, country, factor, l
     return reason
   if response.status_code == 200:
     database.insert_card(card_id, lem_id, data)
-    database.get_cards(lem_id)
-    return redirect(url_for('dashboard', LEMid=lem_id))
+    card_data = database.get_cards(lem_id)
+    print(card_data)
+    return card_data
   else:
     return response.text
 

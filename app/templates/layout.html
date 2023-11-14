@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/application.css') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.2.0/swiper-bundle.css" integrity="sha512-EDXaYrpumQKF+Ic8nuEsgJWBwMOhgwWvNINclFu91nx5VR4MeZ5xlUvyRaYQJTMImwbXSeDjtZMtTs8EB65Z0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 
@@ -56,7 +57,7 @@
           <li class="nav-item">
               <a class="nav-link" href="{{ url_for('onboard_success')}}?LEMid={{ request.args['LEMid'] }}">
               <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-              Bank account
+              Business account
             </a>
           </li>
           <li class="nav-item">
@@ -81,5 +82,30 @@
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.2.0/swiper-bundle.min.js" integrity="sha512-QwpsxtdZRih55GaU/Ce2Baqoy2tEv9GltjAG8yuTy2k9lHqK7VHHp3wWWe+yITYKZlsT3AaCj49ZxMYPp46iJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        effect: "creative",
+        slideToClickedSlide: true,
+        creativeEffect: {
+          prev: {
+            // will set `translateZ(-400px)` on previous slides
+            translate: ['-50px', 0, 0],
+            scale: 0.9
+          },
+          next: {
+            // will set `translateX(100%)` on next slides
+            translate: ['50px', 0, 0],
+            scale: 0.9
+          },
+          progressMultiplier: 1,
+          limitProgress: 3
+        }
+      });
+    </script>
+    <script src="../static/js/front-end-logic.js"></script>
   </body>
 </html>

@@ -129,15 +129,33 @@ def get_cards(lem_id):
         cursor.execute(sql_get_cards, (lem_id,))
         payment_intruments = cursor.fetchall()
         print("Printing lem_id ", lem_id)
-        print(payment_intruments)
-        all_cards =[]
-        for card_array in payment_intruments:
-            card = card_array[0]
-            card_obj = {card}
-            all_cards.append(card_obj)
-        print(all_cards)
+        print("List of stored cards: ", payment_intruments)
+        # all_cards =[]
+        # for card_array in payment_intruments:
+        #     card = card_array[0]
+        #     card_obj = {card}
+        #     all_cards.append(card_obj)
+        # print(all_cards)
         cursor.close()
-        return all_cards
+        return payment_intruments
+    except sqlite3.Error as error:
+        print("Failed to read data from sqlite table", error)
+    finally:
+        if conn:
+            conn.close()
+            print("The SQLite connection is closed")
+
+def get_card_data(payment_instrument):
+    sql_get_carddata = """SELECT data FROM cards WHERE payment_instrument = ?"""
+    try:
+        conn = sqlite3.connect(_path_to_db_file)
+        cursor = conn.cursor()
+        print("Connected to SQLite")
+        cursor.execute(sql_get_carddata, (payment_instrument,))
+        data = cursor.fetchall()
+        print("Printing cards ", data)
+        cursor.close()
+        return data
     except sqlite3.Error as error:
         print("Failed to read data from sqlite table", error)
     finally:
@@ -170,21 +188,6 @@ def get_business(lem_id):
         print(businessIds)
         business = businessIds[0][0]
         print(business)
-        # businessList = []
-        # allBusiness = []
-        # for businessArray in businessIds:
-        #     business = businessArray[0]
-        #     result = get_bl_for_le(business)
-        #     businessList.append(result)
-        #     print("BusinessID:\n"+ business)
-        #     print(result)
-        #     businessResult = json.loads(result)
-        #     storeName = businessResult['reference']
-        #     storeStatus = businessResult['status']
-        #     storeObj = {"storeName": storeName, "storeId":store, "status":storeStatus}
-        #     print(businessResult['reference'])
-        #     allStores.append(storeObj)
-        #     print(allStores)
         cursor.close()
         return business
     except sqlite3.Error as error:
@@ -223,11 +226,6 @@ def get_stores(lem_id):
             # storesList.append(result)
             print("StoreID:\n"+ store)
             print(storeObj)
-            # storeResult = json.loads(result)
-            # storeName = storeResult['reference']
-            # storeStatus = storeResult['status']
-            # storeObj = {"storeName": storeName, "storeId":store, "status":storeStatus}
-            # print(storeResult['reference'])
             allStores.append(storeObj)
             print(allStores)
         cursor.close()
