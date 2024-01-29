@@ -139,7 +139,7 @@
                             {% else %}
                                 <div class="d-md-flex gap-2 justify-content-md-end">
                                   {% if card_data[1] %}
-                                  <button type="submit" class="btn btn-dark ml-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                  <button type="submit" class="btn btn-dark ml-auto" onclick="window.location.href = '{{ url_for('cards_view')}}?LEMid={{ request.args['LEMid'] }}';">
                                     View all cards</button>
                                     {% else %}
                                     {% endif %}

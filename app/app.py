@@ -165,7 +165,9 @@ def create_app():
         lem = data_json.get("lem")
         card_list = database.get_cards(lem)
         pi = card_list[0]
+        print("pi", pi)
         pi_string = next(iter(pi))
+        print("pi_string", pi_string)
         redirect_response = reveal_pan(pi_string, encrypted_aes)
         print(redirect_response)
         print('the payment instrument here', pi_string)
