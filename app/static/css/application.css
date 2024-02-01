@@ -561,3 +561,16 @@ overflow: visible !important;
 .btn-dark {
   background-color: #d10a38;
 }
+
+/* Card Activity status */
+.captured {
+  color: green;
+}
+
+.expired {
+  color: #FFC600;
+}
+
+.rejected {
+  color: red;
+}
