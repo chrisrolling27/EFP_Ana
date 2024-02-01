@@ -566,6 +566,18 @@ overflow: visible !important;
   border: 0px
 }
 
+/* Card Activity status */
+.captured {
+  color: green;
+}
+
+.expired {
+  color: #FFC600;
+}
+
+.rejected {
+  color: red;
+}
 /* .nav-link {
   color: #0058a2 !important;
   
