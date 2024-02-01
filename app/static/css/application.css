@@ -54,7 +54,7 @@ body {
   
   .sidebar .nav-link {
 	font-weight: 500;
-	color: #404040;
+	color: #0058a2;
   }
   
   .sidebar .nav-link .feather {
@@ -62,9 +62,10 @@ body {
 	color: #404040;
   }
   
-  .sidebar .nav-link.active {
-	color: #404040;
-	background-color: #e8e4df;
+  .sidebar
+  .nav-link.active {
+	color: #e8e4df;
+	background-color: #0058a2;
   }
   
   .sidebar .nav-link:hover .feather,
@@ -185,7 +186,7 @@ body {
   .nav-tabs-bordered .nav-link {
 	margin-bottom: -2px;
 	border: none;
-	color: #F1C40F;
+	color: #0058a2;
   }
   
   .nav-tabs-bordered .nav-link:hover,
@@ -195,8 +196,8 @@ body {
   
   .nav-tabs-bordered .nav-link.active {
 	background-color: #fff;
-	color: #FFC600;
-	border-bottom: 2px solid #FFD747;
+	color: #0058a2;
+	border-bottom: 2px solid #0058a2;
   }
 
 /*--------------------------------------------------------------
@@ -573,4 +574,12 @@ overflow: visible !important;
 
 .rejected {
   color: red;
+}
+/* .nav-link {
+  color: #0058a2 !important;
+  
+} */
+
+.CheckLogo {
+  width: 200px; 
 }
