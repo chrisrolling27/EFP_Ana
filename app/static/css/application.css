@@ -59,7 +59,7 @@ body {
   
   .sidebar .nav-link .feather {
 	margin-right: 4px;
-	color: #404040;
+	color: #0058a2;
   }
   
   .sidebar
@@ -76,6 +76,7 @@ body {
   .sidebar-heading {
 	font-size: .75rem;
   }
+  
   
   /*
    * Navbar
@@ -191,7 +192,7 @@ body {
   
   .nav-tabs-bordered .nav-link:hover,
   .nav-tabs-bordered .nav-link:focus {
-	color: #FFD747;
+	color: #0058a2;
   }
   
   .nav-tabs-bordered .nav-link.active {
@@ -210,7 +211,7 @@ body {
   .profile .profile-card h2 {
 	font-size: 24px;
 	font-weight: 700;
-	color: #7D6608;
+	color: #0058a2;
 	margin: 10px 0 0 0;
   }
   
@@ -228,7 +229,7 @@ body {
   }
   
   .profile .profile-card .social-links a:hover {
-	color: #B7950B;
+	color: #0058a2;
   }
   
   .profile .profile-overview .row {
@@ -237,17 +238,17 @@ body {
   }
   
   .profile .profile-overview .card-title {
-	color: #7D6608;
+	color: #0058a2;
   }
   
   .profile .profile-overview .label {
 	font-weight: 600;
-	color: #7D6608;
+	color: #0058a2;
   }
   
   .profile .profile-edit label {
 	font-weight: 600;
-	color: #7D6608;
+	color: #0058a2;
   }
   
   .profile .profile-edit img {
@@ -561,6 +562,8 @@ overflow: visible !important;
 
 .btn-dark {
   background-color: #d10a38;
+  border-radius: 4px;
+  border: 0px
 }
 
 /* .nav-link {
@@ -570,4 +573,11 @@ overflow: visible !important;
 
 .CheckLogo {
   width: 200px; 
+}
+
+.alert-warning {
+  background-color: #0692ce;
+  opacity: 0.5;
+  border: 0px;
+  color: #fff;
 }
