@@ -276,10 +276,13 @@ def create_app():
             card_holder = request.form['cardHolderName']
             scheme = request.form['cardScheme']
             factor = request.form['cardType']
+            print(scheme)
             if factor == 'Virtual':
                 factor = 'virtual'
-            if scheme == 'Mastercard': 
+                print("I reach virtual")
+            if scheme == 'mc': 
                 brand = 'mc'
+                print("I reach mc")
                 variant = 'mc_debit_mdt'
                 # create payment instrument with all data
                 redirect_response = create_card(balance_account, brand, variant, card_holder, country, factor, lem)
