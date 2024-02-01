@@ -557,3 +557,7 @@ overflow: visible !important;
 .swiper-slide:nth-child(10n) {
   background-color: rgb(54, 94, 77);
 }
+
+.btn-dark {
+  background-color: #d10a38;
+}

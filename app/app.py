@@ -111,7 +111,7 @@ def create_app():
 
     @app.route('/forceCreate', methods=['POST', 'GET'])
     def force_create():
-        database.force_create_table()
+        database.create_table()
         return render_template('onboard-success.html')
 
     @app.route('/result/success', methods=['GET', 'POST'])

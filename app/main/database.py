@@ -38,6 +38,9 @@ def create_table():
     # create also table for balanceAccounts information
     sql_create_table = """CREATE TABLE IF NOT EXISTS balance(lem_id PRIMARY KEY, balance_accounts NOT NULL);"""
     _execute_sql(sql_create_table, False)
+    # create also table for cards
+    sql_create_table = """CREATE TABLE IF NOT EXISTS cards(payment_instrument PRIMARY KEY, lem_id NOT NULL, data NOT NULL);"""
+    _execute_sql(sql_create_table, False)
 
 # function to insert a user into the database table
 def insert_user(username, password, lem_id):
