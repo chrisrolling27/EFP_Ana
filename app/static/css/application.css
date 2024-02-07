@@ -175,6 +175,18 @@ body {
 	margin-bottom: 1.5rem!important;
   }
 
+  .btn-lg {
+    background-color: #d10a38;
+    color: #fff;
+    border-radius: 4px;
+    border: 0px
+  }
+
+  .btn-lg:hover {
+    background-color: #444444;
+    color: #fff;
+  }
+
   .store-padding {
 	padding: 20px 20px 10px 20px!important;
   }
