@@ -391,8 +391,8 @@
               lem: urlParams.get('LEMid')
             })
           }).done(function(msg){
-            console.log(msg)
-            var data = bytes_to_string(AES_CBC.decrypt(hex_to_bytes(msg), hex_to_bytes(aesKey), false, hex_to_bytes("00000000000000000000000000000000")));
+            console.log(msg[0])
+            var data = bytes_to_string(AES_CBC.decrypt(hex_to_bytes(msg[0]), hex_to_bytes(aesKey), false, hex_to_bytes("00000000000000000000000000000000")));
             var paymentInstrumentInfo = JSON.parse(data.replaceAll('\x10',''));
             const joy = paymentInstrumentInfo.pan.match(/.{1,4}/g);
             console.log(joy.join(' '));
