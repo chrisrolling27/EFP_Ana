@@ -183,7 +183,7 @@ body {
   }
 
   .btn-lg:hover {
-    background-color: #444444;
+    background-color: rgb(157, 9 , 43);
     color: #fff;
   }
 
@@ -360,13 +360,15 @@ body {
 }
 
 .second-card {
-  background: #B64E3A !important;
+  background: #101d41 !important;
   color: #fff !important;
   text-shadow: 0px 0.5px 1px rgba(255, 255, 255, 0.731) !important;
 }
 
 .third-card {
-  background: #DB9284 !important;
+  background: rgb(135,141,160)!important; 
+  color: #fff !important;
+  text-shadow: 0px 0.5px 1px rgba(255, 255, 255, 0.731) !important;
 }
 
 .dimmed {
@@ -575,7 +577,8 @@ overflow: visible !important;
 .btn-dark {
   background-color: #d10a38;
   border-radius: 4px;
-  border: 0px
+  border: 0px;
+  --bs-btn-hover-bg: rgb(157, 9 , 43);
 }
 
 /* Card Activity status */
@@ -604,4 +607,21 @@ overflow: visible !important;
   opacity: 0.5;
   border: 0px;
   color: #fff;
+}
+
+.card-body-blue {
+  background-color: #0058a2;
+  padding: 0 20px 20px 20px;
+  color: #fff;
+}
+
+.btn-outline-dark {
+  --bs-btn-border-color: #d10a38;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #d10a38;
+  --bs-btn-hover-border-color: #d10a38;
+}
+
+.whitetx {
+  color: #fff !important;
 }
