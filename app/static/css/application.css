@@ -62,9 +62,10 @@ body {
 	color: #404040;
   }
   
+
   .sidebar .nav-link.active {
-	color: #404040;
-	background-color: #e8e4df;
+    color: #404040;
+    background-color: #e8e4df;
   }
   
   .sidebar .nav-link:hover .feather,
@@ -75,6 +76,7 @@ body {
   .sidebar-heading {
 	font-size: .75rem;
   }
+  
   
   /*
    * Navbar
@@ -173,6 +175,18 @@ body {
 	margin-bottom: 1.5rem!important;
   }
 
+  .btn-lg {
+    background-color: #B64E3A;
+    color: #fff;
+    border-radius: 4px;
+    border: 0px
+  }
+
+  .btn-lg:hover {
+    background-color: #B64E3A;
+    color: #fff;
+  }
+
   .store-padding {
 	padding: 20px 20px 10px 20px!important;
   }
@@ -195,7 +209,7 @@ body {
   
   .nav-tabs-bordered .nav-link.active {
 	background-color: #fff;
-	color: #FFC600;
+  color: #FFC600;
 	border-bottom: 2px solid #FFD747;
   }
 
@@ -353,6 +367,8 @@ body {
 
 .third-card {
   background: #DB9284 !important;
+  color: #000 !important;
+  text-shadow: 0px 0.5px 1px rgba(255, 255, 255, 0.731) !important;
 }
 
 .dimmed {
@@ -556,4 +572,56 @@ overflow: visible !important;
 
 .swiper-slide:nth-child(10n) {
   background-color: rgb(54, 94, 77);
+}
+
+.btn-dark {
+  background-color: #00112C;
+  border-radius: 4px;
+  border: 0px;
+  --bs-btn-hover-bg: #B64E3A;
+}
+
+/* Card Activity status */
+.captured {
+  color: green;
+}
+
+.expired {
+  color: #FFC600;
+}
+
+.rejected {
+  color: red;
+}
+/* .nav-link {
+  color: #0058a2 !important;
+  
+} */
+
+.CheckLogo {
+  width: 200px; 
+}
+
+.alert-warning {
+  background-color: #7D6608;
+  opacity: 0.5;
+  border: 0px;
+  color: #fff;
+}
+
+.card-body-blue {
+  background-color: #0058a2;
+  padding: 0 20px 20px 20px;
+  color: #fff;
+}
+
+.btn-outline-dark {
+  --bs-btn-border-color: #00112C;
+  --bs-btn-color: #00112C;
+  --bs-btn-hover-bg: #B64E3A;
+  --bs-btn-hover-border-color: #00112C;
+}
+
+.whitetx {
+  color: #fff !important;
 }

@@ -10,7 +10,7 @@ from main import database
 Issue a new card
 '''
 
-def create_card(balance_account, brand, variant, card_holder, country, factor, lem_id):
+def create_card(balance_account, brand, variant, card_holder, country, factor, lem_id, phone):
   url = "https://balanceplatform-api-test.adyen.com/bcl/v3/paymentInstruments"
 
   user = get_bp_user()
@@ -32,7 +32,11 @@ def create_card(balance_account, brand, variant, card_holder, country, factor, l
         "cardholderName": card_holder,
         "brand": brand,
         "brandVariant": variant,
-        "formFactor": factor
+        "formFactor": factor,
+        "authentication":
+          {
+            "phone": phone
+          }
         }
     }
 

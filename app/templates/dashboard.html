@@ -139,7 +139,7 @@
                             {% else %}
                                 <div class="d-md-flex gap-2 justify-content-md-end">
                                   {% if card_data[1] %}
-                                  <button type="submit" class="btn btn-dark ml-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                  <button type="submit" class="btn btn-dark ml-auto" onclick="window.location.href = '{{ url_for('cards_view')}}?LEMid={{ request.args['LEMid'] }}';">
                                     View all cards</button>
                                     {% else %}
                                     {% endif %}
@@ -294,6 +294,10 @@
                               </select>
                             </div>
                             <div class="col-md-12">
+                              <label for="inputPhone" class="card-form-label">Phone number</label>
+                              <input type="text" class="form-control form-control-sm" id="inputPhone" name="phone" placeholder="+44">
+                            </div>
+                            <div class="col-md-12">
                               <label for="inputDelivery" class="card-form-label">Delivery address</label>
                               <input type="text" class="form-control form-control-sm" id="inputDelivery" name="delivery">
                             </div>
@@ -387,8 +391,8 @@
               lem: urlParams.get('LEMid')
             })
           }).done(function(msg){
-            console.log(msg)
-            var data = bytes_to_string(AES_CBC.decrypt(hex_to_bytes(msg), hex_to_bytes(aesKey), false, hex_to_bytes("00000000000000000000000000000000")));
+            console.log(msg[0])
+            var data = bytes_to_string(AES_CBC.decrypt(hex_to_bytes(msg[0]), hex_to_bytes(aesKey), false, hex_to_bytes("00000000000000000000000000000000")));
             var paymentInstrumentInfo = JSON.parse(data.replaceAll('\x10',''));
             const joy = paymentInstrumentInfo.pan.match(/.{1,4}/g);
             console.log(joy.join(' '));

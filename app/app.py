@@ -111,7 +111,7 @@ def create_app():
 
     @app.route('/forceCreate', methods=['POST', 'GET'])
     def force_create():
-        database.force_create_table()
+        database.create_table()
         return render_template('onboard-success.html')
 
     @app.route('/result/success', methods=['GET', 'POST'])
@@ -164,12 +164,19 @@ def create_app():
         encrypted_aes = data_json.get("encrypted_aes")
         lem = data_json.get("lem")
         card_list = database.get_cards(lem)
-        pi = card_list[0]
-        pi_string = next(iter(pi))
-        redirect_response = reveal_pan(pi_string, encrypted_aes)
-        print(redirect_response)
-        print('the payment instrument here', pi_string)
-        return redirect_response
+        print(card_list)
+        encrypted_cards = []
+        for pi in card_list:
+        # pi = card_list[0]
+            print("pi", pi)
+            pi_string = next(iter(pi))
+            print("pi_string", pi_string)
+            redirect_response = reveal_pan(pi_string, encrypted_aes)
+            print(redirect_response)
+            print('the payment instrument here', pi_string)
+            encrypted_cards.append(redirect_response)
+        print('what gets returned in the end', encrypted_cards)
+        return encrypted_cards
 
     @app.route('/postmethod', methods = ['POST'])
     def get_post_javascript_data():
@@ -274,13 +281,17 @@ def create_app():
             card_holder = request.form['cardHolderName']
             scheme = request.form['cardScheme']
             factor = request.form['cardType']
+            phone = request.form['phone']
+            print(scheme)
             if factor == 'Virtual':
                 factor = 'virtual'
-            if scheme == 'Mastercard': 
+                print("I reach virtual")
+            if scheme == 'mc': 
                 brand = 'mc'
+                print("I reach mc")
                 variant = 'mc_debit_mdt'
                 # create payment instrument with all data
-                redirect_response = create_card(balance_account, brand, variant, card_holder, country, factor, lem)
+                redirect_response = create_card(balance_account, brand, variant, card_holder, country, factor, lem, phone)
                 print(redirect_response)
 
                 return redirect(url_for('dashboard', LEMid=lem))
@@ -310,6 +321,27 @@ def create_app():
                 card_data = card_array
         return render_template('cards.html', lem=lem, card_data=card_data)
 
+    @app.route('/lastFour', methods=['POST', 'GET'])
+    def last_four():
+        jsdata = request.form['javascript_data']
+        data_json = json.loads(jsdata)
+        lem = data_json.get("lem")
+        existing_cards = database.get_cards(lem)
+        print("Existing cards", str(existing_cards[0][0]))
+        card_array = []
+        for card in existing_cards:
+            data = database.get_card_data(card[0])
+            data_obj = data[0][0]
+            data_json = json.loads(data_obj)
+            last_four = data_json.get("card").get("lastFour")
+            month = data_json.get("card").get("expiration").get("month")
+            year = data_json.get("card").get("expiration").get("year")
+            cardholder = data_json.get("card").get("cardholderName")
+            brand = data_json.get("card").get("brand")
+            each_card = [last_four, month, year, cardholder, brand]
+            card_array.append(each_card)
+            card_data = card_array
+        return card_data
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():

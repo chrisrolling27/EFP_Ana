@@ -64,7 +64,7 @@ def account_holder(LEMid, legalName, currency):
   }
 
   payload = {
-    "balancePlatform": "AnaBanana",
+   
     "description": f'{legalName} Company Account Holder',
     "legalEntityId": LEMid
   }
