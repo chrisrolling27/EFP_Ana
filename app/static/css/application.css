@@ -54,18 +54,18 @@ body {
   
   .sidebar .nav-link {
 	font-weight: 500;
-	color: #0058a2;
+	color: #404040;
   }
   
   .sidebar .nav-link .feather {
 	margin-right: 4px;
-	color: #0058a2;
+	color: #404040;
   }
   
-  .sidebar
-  .nav-link.active {
-	color: #e8e4df;
-	background-color: #0058a2;
+
+  .sidebar .nav-link.active {
+    color: #404040;
+    background-color: #e8e4df;
   }
   
   .sidebar .nav-link:hover .feather,
@@ -176,14 +176,14 @@ body {
   }
 
   .btn-lg {
-    background-color: #d10a38;
+    background-color: #B64E3A;
     color: #fff;
     border-radius: 4px;
     border: 0px
   }
 
   .btn-lg:hover {
-    background-color: rgb(157, 9 , 43);
+    background-color: #B64E3A;
     color: #fff;
   }
 
@@ -199,18 +199,18 @@ body {
   .nav-tabs-bordered .nav-link {
 	margin-bottom: -2px;
 	border: none;
-	color: #0058a2;
+	color: #F1C40F;
   }
   
   .nav-tabs-bordered .nav-link:hover,
   .nav-tabs-bordered .nav-link:focus {
-	color: #0058a2;
+	color: #FFD747;
   }
   
   .nav-tabs-bordered .nav-link.active {
 	background-color: #fff;
-	color: #0058a2;
-	border-bottom: 2px solid #0058a2;
+  color: #FFC600;
+	border-bottom: 2px solid #FFD747;
   }
 
 /*--------------------------------------------------------------
@@ -223,7 +223,7 @@ body {
   .profile .profile-card h2 {
 	font-size: 24px;
 	font-weight: 700;
-	color: #0058a2;
+	color: #7D6608;
 	margin: 10px 0 0 0;
   }
   
@@ -241,7 +241,7 @@ body {
   }
   
   .profile .profile-card .social-links a:hover {
-	color: #0058a2;
+	color: #B7950B;
   }
   
   .profile .profile-overview .row {
@@ -250,17 +250,17 @@ body {
   }
   
   .profile .profile-overview .card-title {
-	color: #0058a2;
+	color: #7D6608;
   }
   
   .profile .profile-overview .label {
 	font-weight: 600;
-	color: #0058a2;
+	color: #7D6608;
   }
   
   .profile .profile-edit label {
 	font-weight: 600;
-	color: #0058a2;
+	color: #7D6608;
   }
   
   .profile .profile-edit img {
@@ -295,7 +295,7 @@ body {
   min-width: 0;
   min-height: 0;
   color: #000;
-  background: #fff;
+  background: #F6C953;
   margin-top: 30px;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -360,14 +360,14 @@ body {
 }
 
 .second-card {
-  background: #101d41 !important;
+  background: #B64E3A !important;
   color: #fff !important;
   text-shadow: 0px 0.5px 1px rgba(255, 255, 255, 0.731) !important;
 }
 
 .third-card {
-  background: rgb(135,141,160)!important; 
-  color: #fff !important;
+  background: #DB9284 !important;
+  color: #000 !important;
   text-shadow: 0px 0.5px 1px rgba(255, 255, 255, 0.731) !important;
 }
 
@@ -418,8 +418,8 @@ body {
   height: 172px;
   min-width: 0;
   min-height: 0;
-  color: #fff;
-  background: #101d41;
+  color: #000;
+  background: #F6C953;
   margin-left: 55px;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -575,10 +575,10 @@ overflow: visible !important;
 }
 
 .btn-dark {
-  background-color: #d10a38;
+  background-color: #00112C;
   border-radius: 4px;
   border: 0px;
-  --bs-btn-hover-bg: rgb(157, 9 , 43);
+  --bs-btn-hover-bg: #B64E3A;
 }
 
 /* Card Activity status */
@@ -603,7 +603,7 @@ overflow: visible !important;
 }
 
 .alert-warning {
-  background-color: #0692ce;
+  background-color: #7D6608;
   opacity: 0.5;
   border: 0px;
   color: #fff;
@@ -616,10 +616,10 @@ overflow: visible !important;
 }
 
 .btn-outline-dark {
-  --bs-btn-border-color: #d10a38;
-  --bs-btn-color: #fff;
-  --bs-btn-hover-bg: #d10a38;
-  --bs-btn-hover-border-color: #d10a38;
+  --bs-btn-border-color: #00112C;
+  --bs-btn-color: #00112C;
+  --bs-btn-hover-bg: #B64E3A;
+  --bs-btn-hover-border-color: #00112C;
 }
 
 .whitetx {
