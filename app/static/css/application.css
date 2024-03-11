@@ -1,3 +1,55 @@
+:root {
+  --color-1: #00112C;
+  --color-2: #8080803D;
+  --color-3: #fff;
+  --color-4: #00112c;
+  --color-5: #00112c;
+  --font-options: "Segoe UI", sans-serif, Helvetica, Arial;
+  --text-color: #00112c;
+  --alt-text-color: #00112c;
+  --image-1: url(/static/img/mystore-logo.svg);
+  --image-2: url(/static/img/cover5.png);
+  --image-3: url(/static/img/Logo-Square.svg);
+  --adyen-demo: url(/static/img/wdemo.png)
+}
+
+.navbar-logo{
+  content: var(--image-3);
+  max-height: 37px;
+}
+
+.brand-logo {
+  content: var(--image-1);
+  height: 70px;
+}
+
+.card-logo{
+  content: var(--image-1);
+}
+
+.login-cover {
+  content: var(--image-2);
+  height: auto;
+  width: auto;
+  max-width: 260%;
+  max-height: 100%;
+  border-radius: 1rem;
+}
+
+.login-cover-div {
+  overflow: hidden;
+}
+
+.main-color {
+  background-color: var(--color-1);
+}
+
+.adyen-demo {
+  content: var(--adyen-demo);
+  max-width: 120px;
+  transform: translateY(-200%);
+}
+
 body {
 	font-size: .875rem;
 	font-family: "Poppins","Nunito","Open Sans", sans-serif;
@@ -36,7 +88,7 @@ body {
 	z-index: 200; /* Behind the navbar */
 	padding: 48px 0 0; /* Height of navbar */
 	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-	background-color: #fff0d0;
+	background-color: var(--color-1);
   }
   
   @media (max-width: 767.98px) {
@@ -49,23 +101,23 @@ body {
 	height: calc(100vh - 48px);
 	overflow-x: hidden;
 	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-	background-color: #F7F4F0;
+	background-color: var(--color-1);
   }
   
   .sidebar .nav-link {
 	font-weight: 500;
-	color: #404040;
+	color: var(--color-3);
   }
   
   .sidebar .nav-link .feather {
 	margin-right: 4px;
-	color: #404040;
+	color: var(--color-3);
   }
   
 
   .sidebar .nav-link.active {
-    color: #404040;
-    background-color: #e8e4df;
+    color: var(--color-3);
+    background-color: var(--color-2);
   }
   
   .sidebar .nav-link:hover .feather,
@@ -85,8 +137,11 @@ body {
   .navbar-brand {
 	padding-top: .75rem;
 	padding-bottom: .90rem;
-	background-color: #F7F4F0;
-	color: #404040;
+	background-color: var(--color-1);
+	color: var(--color-3);
+  }
+  .navbar-brand:hover {
+    color: var(--color-3)
   }
   
   .navbar .navbar-toggler {
@@ -166,7 +221,7 @@ body {
   }
 
   .border-left-warning {
-    border-left: 0.25rem solid #f6c23e!important;
+    border-left: 0.25rem solid var(--color-1)!important;
   }
 
   .store-card {
@@ -176,14 +231,14 @@ body {
   }
 
   .btn-lg {
-    background-color: #B64E3A;
+    background-color: var(--color-1);
     color: #fff;
     border-radius: 4px;
     border: 0px
   }
 
   .btn-lg:hover {
-    background-color: #B64E3A;
+    background-color: var(--color-1);
     color: #fff;
   }
 
@@ -199,18 +254,18 @@ body {
   .nav-tabs-bordered .nav-link {
 	margin-bottom: -2px;
 	border: none;
-	color: #F1C40F;
+	color: var(--color-1);
   }
   
   .nav-tabs-bordered .nav-link:hover,
   .nav-tabs-bordered .nav-link:focus {
-	color: #FFD747;
+	color: var(--color-1);
   }
   
   .nav-tabs-bordered .nav-link.active {
 	background-color: #fff;
-  color: #FFC600;
-	border-bottom: 2px solid #FFD747;
+  color: var(--color-1);
+	border-bottom: 3px solid var(--color-1);
   }
 
 /*--------------------------------------------------------------
@@ -324,9 +379,8 @@ body {
 }
 
 .creditCard .chipLogo {
-  margin-top: 20px;
+  margin-top: 25px;
   height: 36px;
-  padding-left: 30px;
 }
 
 .creditCard .card-label {
@@ -577,8 +631,15 @@ overflow: visible !important;
 .btn-dark {
   background-color: #00112C;
   border-radius: 4px;
-  border: 0px;
-  --bs-btn-hover-bg: #B64E3A;
+  /* border: 0px; */
+  --bs-btn-hover-bg: var(--color-3);
+  --bs-btn-hover-border-color: #00112C;
+}
+.btn-dark:hover {
+  color: var(--color-1);
+  background-color: var(--color-2);
+  border-color: var(--color-1);
+  border: 2px;
 }
 
 /* Card Activity status */
@@ -603,10 +664,10 @@ overflow: visible !important;
 }
 
 .alert-warning {
-  background-color: #7D6608;
+  background-color: #ffeacc;
   opacity: 0.5;
   border: 0px;
-  color: #fff;
+  color: #7f4a00;
 }
 
 .card-body-blue {
@@ -618,7 +679,7 @@ overflow: visible !important;
 .btn-outline-dark {
   --bs-btn-border-color: #00112C;
   --bs-btn-color: #00112C;
-  --bs-btn-hover-bg: #B64E3A;
+  --bs-btn-hover-bg: var(--color-1);
   --bs-btn-hover-border-color: #00112C;
 }
 

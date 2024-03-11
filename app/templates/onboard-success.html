@@ -15,13 +15,6 @@
             {% endif %}
             <div class="pagetitle">
                 <h1>Account</h1>
-                <nav>
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="home.html">Home</a></li>
-                    <li class="breadcrumb-item">Users</li>
-                    <li class="breadcrumb-item active">Account</li>
-                  </ol>
-                </nav>
               </div><!-- End Page Title -->
             <div class="status-container">
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -92,7 +85,7 @@
                               <div class="col-lg-9 col-md-8">{{ email }}</div>
                             </div>
                             <div class="alert alert-warning" role="alert">
-                                Your account is missing information.
+                                <strong>Your account is missing information.</strong>
                             </div>
                             <form action="/onboard/{{lem}}" method="POST">
                                 <div class="col-12">

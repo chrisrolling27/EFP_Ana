@@ -378,7 +378,7 @@ def create_app():
     @app.route('/favicon.ico')
     def favicon():
         return send_from_directory(os.path.join(app.root_path, 'static'),
-                                   'img/banana.png')
+                                   'img/Logo-Square.svg')
 
     initialise_db(app.root_path)
 
