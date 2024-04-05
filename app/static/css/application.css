@@ -7,20 +7,20 @@
   --font-options: "Segoe UI", sans-serif, Helvetica, Arial;
   --text-color: #00112c;
   --alt-text-color: #00112c;
-  --image-1: url(/static/img/mystore-logo.svg);
+  --image-1: url(/static/img/my-platform-logo.svg);
   --image-2: url(/static/img/cover5.png);
-  --image-3: url(/static/img/Logo-Square.svg);
+  --image-3: url(/static/img/favicon-tacos-white.svg);
   --adyen-demo: url(/static/img/wdemo.png)
 }
 
 .navbar-logo{
   content: var(--image-3);
   max-height: 37px;
+  padding-right: 7px;
 }
 
 .brand-logo {
   content: var(--image-1);
-  height: 70px;
 }
 
 .card-logo{
@@ -350,7 +350,7 @@ body {
   min-width: 0;
   min-height: 0;
   color: #000;
-  background: #F6C953;
+  background: white;
   margin-top: 30px;
   margin-bottom: 20px;
   border-radius: 8px;
