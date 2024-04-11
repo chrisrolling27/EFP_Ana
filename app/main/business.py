@@ -3,7 +3,8 @@ import json
 import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass, get_adyen_api_key, get_adyen_merchant_account
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, session
+from flask_session import Session
 from main import database
 
 '''
@@ -39,6 +40,8 @@ def business_line(industryCode,
     }
 
   print("/businessLines request:\n" + str(payload))
+  session['blReq'] = json.dumps(payload, indent=2)
+
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -52,6 +55,7 @@ def business_line(industryCode,
     return reason
   if response.status_code == 200:
     node = json.loads(response.text)
+    session['blRes'] = json.dumps(node, indent=2)
     businessLine = node['id']
     dataToStore = {'industryCode': industryCode, 'salesChannel': channel}
     jsonData = json.dumps(dataToStore)

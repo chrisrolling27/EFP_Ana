@@ -3,7 +3,9 @@ import sqlite3
 from os.path import exists
 
 from Adyen.util import is_valid_hmac_notification
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, session
+from flask_session import Session
+
 
 import json
 import re
@@ -26,6 +28,11 @@ def create_app():
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
     app = Flask('app')
+    app.config['SESSION_TYPE'] = 'filesystem'
+    app.secret_key = 'super secret key'
+
+    Session(app)
+
 
     # Register 404 handler
     app.register_error_handler(404, page_not_found)

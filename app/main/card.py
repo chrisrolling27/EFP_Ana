@@ -3,7 +3,8 @@ import json
 import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass, get_adyen_api_key, get_adyen_merchant_account
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, session
+from flask_session import Session
 from main import database
 
 '''

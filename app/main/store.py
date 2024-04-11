@@ -3,69 +3,14 @@ import json
 import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass, get_adyen_api_key, get_adyen_merchant_account
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, session
+from flask_session import Session
 from main import database
 
 '''
 Partner Model onboarding Flow
 '''
 
-# def business_line(industryCode,
-#                 webAddress,
-#                 lem_id,
-#                 reference,
-#                 description,
-#                 channel,
-#                 shopperStatement,
-#                 phoneNumber,
-#                 line1,
-#                 city,
-#                 postalCode,
-#                 country,
-#                 schemes,
-#                 currencies,
-#                 countries):
-#   url = "https://kyc-test.adyen.com/lem/v2/businessLines"
-
-#   user = get_lem_user()
-#   password = get_lem_pass()
-
-#   basic = (user, password)
-#   platform = "test" # change to live for production
-
-#   headers = {
-#       'Content-Type': 'application/json'
-#   }
-
-#   payload = {
-#     "capability": "receivePayments",
-#     "salesChannels": [channel],
-#     "industryCode": industryCode,
-#     "legalEntityId": lem_id,
-#     "webData": [
-#         {
-#         "webAddress": webAddress
-#         }
-#     ]
-#     }
-
-#   print("/businessLines request:\n" + str(payload))
-
-#   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
-
-#   print("/businessLines response:\n" + response.text, response.status_code, response.reason)
-  
-#   print(response.headers)
-#   if response.status_code == 200:
-#     node = json.loads(response.text)
-#     businessLine = node['id']
-#     print(businessLine)
-#     store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id)
-#     return redirect(url_for('onboard_success', LEMid=lem_id))
-#   else:
-#     return response.text
-
-# def store_create(reference, description, shopperStatement, phoneNumber, line1, city, country, postalCode, businessLine, schemes, currencies, countries, lem_id):
 def store_create(
                 lem_id,
                 reference,
@@ -111,10 +56,14 @@ def store_create(
 }
 
   print("/stores request:\n" + str(payload))
+  requestPayload = str(payload)
+  session['stReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers)
 
   print("/stores response:\n" + response.text, response.status_code, response.reason)
+  responsePayload = response.text
+  responseCode = response.status_code
   
   node = json.loads(response.text)
   print(response.headers)
@@ -126,6 +75,7 @@ def store_create(
   if response.status_code == 201 or 200:
       storeId = node['id']
       storeDB = database.insert_store(storeId, lem_id, reference)
+      session['stRes'] = json.dumps(node, indent=2)
       print(storeId)
       for scheme in schemes:
         payment_method(scheme, businessLine, storeId, currencies, countries)
@@ -155,6 +105,7 @@ def payment_method(scheme, businessLine, storeId, currencies, countries):
 }
 
   print("/paymentMethodSettings request:\n" + str(payload))
+  session['pmReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers)
 
@@ -163,6 +114,7 @@ def payment_method(scheme, businessLine, storeId, currencies, countries):
   node = json.loads(response.text)
   print(response.headers)
   if response.status_code == 200:
+    session['pmRes'] = json.dumps(node, indent=2)
     return response.text
   else:
     return response.text

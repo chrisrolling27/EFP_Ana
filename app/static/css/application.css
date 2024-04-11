@@ -10,7 +10,7 @@
   --image-1: url(/static/img/my-platform-logo.svg);
   --image-2: url(/static/img/cover5.png);
   --image-3: url(/static/img/favicon-tacos-white.svg);
-  --adyen-demo: url(/static/img/wdemo.png)
+  --adyen-demo: url(/static/img/wdemo.png);
 }
 
 .navbar-logo{
@@ -435,7 +435,7 @@ body {
   opacity: 0.5;
 }
 
-.wrapper {
+.card-wrapper {
   position: relative;
   width: 322px;
   height: 206px;
@@ -685,4 +685,150 @@ overflow: visible !important;
 
 .whitetx {
   color: #fff !important;
+}
+
+
+/* Code sidebar */
+
+.wrapper {
+  width: 100%;
+}
+
+#code-sidebar {
+  min-width: 300px;
+  max-width: 300px;
+  color: #fff;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+  position: relative;
+  z-index: 0;
+}
+
+#code-sidebar.active {
+  margin-left: -300px;
+}
+
+#code-sidebar .api-explorer-collapse {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  margin-left: -35px;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+
+.col-btn {
+  background: #2f89fc;
+  border-color: transparent;
+  position: relative;
+  color: #000;
+  width: 30px;
+  height: 30px;
+}
+
+.col-btn:after {
+  content: "\f054";
+  left: 2px;
+}
+
+.nav-menu-footer {
+  border-bottom: 1px solid var(--color-2);
+  color: white;
+  font-size: 14px;
+  line-height: 16px;
+  background-color: #0c1c38;
+}
+
+.nav-footer-switcher {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  width: 100%;
+}
+
+.theme-switcher {
+  align-items: center;
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.theme-switcher-label {
+  cursor: pointer;
+  font-weight: 500;
+  margin: 0 8px;
+}
+
+.theme-swtich {
+  background-color: #69778c;
+}
+
+.form-check-input:checked {
+  background-color: #69778c;
+  border-color: #69778c;
+}
+
+
+
+.adl-accordion__title {
+  color: inherit;
+  font-weight: 600;
+  font-family: fakt, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+}
+
+.adl-accordion__content {
+  box-sizing: border-box;
+  margin: 0 0 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 16px 0 calc(32px + 12px);
+  transition-duration: .1s;
+  transition-property: margin, height, padding;
+}
+
+.adl-code-sample {
+  color: #00112c;
+  font-family: fakt, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 100;
+  line-height: 1.4;
+  background-color: #f3f6f9;
+  border-radius: 4px;
+  min-height: 24px;
+  overflow-x: scroll;
+  padding: 24px;
+  white-space: pre-wrap;
+}
+
+.adl-code-sample__code-block {
+  color: #00112c;
+  font-family: fakt, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 100;
+  line-height: 1.4;
+  display: inline-block;
+  font-family: menlo, consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", monaco, "Courier New", courier, monospace;
+}
+
+.codecanvas {
+  width: 50% !important;
+}
+
+.accordion {
+  --bs-accordion-active-color: black;
+  --bs-accordion-active-bg: white;
 }

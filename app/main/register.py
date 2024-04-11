@@ -3,7 +3,8 @@ import json
 import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, session
+from flask_session import Session
 from main import database
 
 '''
@@ -35,6 +36,7 @@ def legal_entity(legalName, currency, country):
   }
 
   print("/legalEntities request:\n" + str(payload))
+  session['leReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -45,6 +47,7 @@ def legal_entity(legalName, currency, country):
   print(LEMid)
   print(response.headers)
   if response.status_code == 200:
+    session['leRes'] = json.dumps(node, indent=2)
     account_holder(LEMid, legalName, currency)
     return redirect(url_for('onboard_success', LEMid=LEMid))
   else:
@@ -70,6 +73,7 @@ def account_holder(LEMid, legalName, currency):
   }
 
   print("/accountHolders request:\n" + str(payload))
+  session['ahReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -80,6 +84,7 @@ def account_holder(LEMid, legalName, currency):
   print(AHid)
   print(response.headers)
   if response.status_code == 200:
+    session['ahRes'] = json.dumps(node, indent=2)
     balance_account(AHid, currency, legalName, LEMid)
     return response.text
   else:
@@ -106,6 +111,7 @@ def balance_account(AHid, currency, legalName, LEMid):
   }
 
   print("/balanceAccounts request:\n" + str(payload))
+  session['baReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -117,6 +123,7 @@ def balance_account(AHid, currency, legalName, LEMid):
   print(BAid)
   print(response.headers)
   if response.status_code == 200:
+    session['baRes'] = json.dumps(node, indent=2)
     print(LEMid)
     database.insert_ba(LEMid, BAid)
     return response.text

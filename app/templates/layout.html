@@ -11,7 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/application.css') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.2.0/swiper-bundle.css" integrity="sha512-EDXaYrpumQKF+Ic8nuEsgJWBwMOhgwWvNINclFu91nx5VR4MeZ5xlUvyRaYQJTMImwbXSeDjtZMtTs8EB65Z0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
 
     <style>
@@ -21,6 +22,7 @@
     <title>My Platform</title>
   </head>
   <body>
+    <div class="wrapper d-flex align-items-stretch">
     <header class="navbar navbar-light fixed-top bg-dark flex-md-nowrap p-0">
       <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="{{ url_for('home') }}"> <img class="navbar-logo" src="" ><strong>My Platform</strong></a>
       <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,13 +75,252 @@
             </a>
           </li>
         </ul>
+        <footer class="fixed-bottom col-md-3 col-lg-2 nav-menu-footer">
+          <section class="nav-footer-switcher">
+            <div class="form-check form-switch">
+              <label class="form-check-label theme-switcher-label" for="flexSwitchCheckDefault">Dev</label>
+              <input class="form-check-input theme-switch" type="checkbox" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" role="switch" id="flexSwitchCheckDefault">
+            </div>
+          </section>
+        </footer>
       </div>
     </nav>
 
         <div class="container pt-5 mt-3">
           {% block content %} {% endblock %}
         </div>
+
+
+
+        <div class="offcanvas codecanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">API Calls</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              {% if session['blReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    POST /businessLines request
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['blReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['blRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    POST /businessLines response
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['blRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['leReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    POST /legalEntities request
+                  </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['leReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['leRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFour">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    POST /legalEntities response
+                  </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['leRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['ahReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFive">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    POST /accountHolders request
+                  </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['ahReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['ahRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSix">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    POST /accountHolders response
+                  </button>
+                </h2>
+                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['ahRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['baReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSeven">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                    POST /balanceAccounts request
+                  </button>
+                </h2>
+                <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['baReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['baRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingEight">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                    POST /balanceAccounts response
+                  </button>
+                </h2>
+                <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['baRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['hoReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingNine">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                    POST /onboardingLinks request
+                  </button>
+                </h2>
+                <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['hoReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['hoRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+                    POST /onboardingLinks response
+                  </button>
+                </h2>
+                <div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingTen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['hoRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['stReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingEleven">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
+                    POST /stores request
+                  </button>
+                </h2>
+                <div id="flush-collapseEleven" class="accordion-collapse collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['stReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['stRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwelve">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                    POST /stores response
+                  </button>
+                </h2>
+                <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['stRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+
+    <!-- <nav id="code-sidebar" class="order-last code-sidebar">
+      <div class="api-explorer-collapse">
+        <button class="col-btn" type="button" id="sidebarCollapse"></button>
       </div>
+      <div class="api-explorer-content">
+        <a class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">API Calls</a>
+        <div class="adl-accordion adl-accordion--max-height-transition">
+          <div class="adl-accordion__item adl-accordion__item--open">
+            <div class="adl-accordion__header" tabindex="0" role="button" aria-expanded="true">
+              <i class="adl-accordion__toggle adl-icon-chevron-up"></i>
+            </div>
+          </div>
+        </div>
+         <ul>
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#home-collapse">/legalEntities Request</button>
+            <div class="collapse show" id="home-collapse">
+              <pre class="adl-code-sample">
+                <code class="adl-code-sample__code-block">{"additionalData":{"card.encrypted.json":"adyenjs_0_1_4p1$..."},"amount":{"value":20000,"currency":"EUR"},"reference": "YOUR REFERENCE HERE","merchantAccount": "TestMerchant"}</code>
+              </pre>
+            </div>
+          </li>
+        </ul> 
+      </div>
+    </nav> -->
     </div>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -107,5 +348,7 @@
       });
     </script>
     <script src="../static/js/front-end-logic.js"></script>
+    <script>hljs.highlightAll();</script>
+  </div>
   </body>
 </html>

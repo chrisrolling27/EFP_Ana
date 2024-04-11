@@ -3,7 +3,8 @@ import json
 import uuid
 import requests
 from main.config import get_basic_lem_auth, get_lem_user, get_lem_pass, get_bp_user, get_bp_pass
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, session
+from flask_session import Session
 
 '''
 MoR onboarding Flow
@@ -28,6 +29,7 @@ def go_to_link(LEMid):
   }
   print("url:" + str(url))
   print("/onboardingLinks request:\n" + str(payload))
+  session['hoReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -38,6 +40,7 @@ def go_to_link(LEMid):
   print(goToUrl)
   print(response.headers)
   if response.status_code == 200:
+    session['hoRes'] = json.dumps(node, indent=2)
     return redirect(goToUrl)
   else:
     return response.text
