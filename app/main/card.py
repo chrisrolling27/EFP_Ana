@@ -42,6 +42,7 @@ def create_card(balance_account, brand, variant, card_holder, country, factor, l
     }
 
   print("/paymentInstruments request:\n" + str(payload))
+  session['piReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -59,6 +60,7 @@ def create_card(balance_account, brand, variant, card_holder, country, factor, l
     print(reason)
     return reason
   if response.status_code == 200:
+    session['piRes'] = json.dumps(node, indent=2)
     database.insert_card(card_id, lem_id, data)
     card_data = database.get_cards(lem_id)
     print(card_data)

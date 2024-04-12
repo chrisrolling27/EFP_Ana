@@ -77,10 +77,11 @@
         </ul>
         <footer class="fixed-bottom col-md-3 col-lg-2 nav-menu-footer">
           <section class="nav-footer-switcher">
-            <div class="form-check form-switch">
+            <button class="btn btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" role="button">API Calls</button>
+            <!-- <div class="form-check form-switch">
               <label class="form-check-label theme-switcher-label" for="flexSwitchCheckDefault">Dev</label>
               <input class="form-check-input theme-switch" type="checkbox" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" role="switch" id="flexSwitchCheckDefault">
-            </div>
+            </div> -->
           </section>
         </footer>
       </div>
@@ -286,6 +287,38 @@
                   <div class="accordion-body">
                     <pre id="json" class="adl-code-sample">
                       <code id="json" class="adl-code-sample__code-block language-json">{{ session['stRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['piReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThirteen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThirteen" aria-expanded="false" aria-controls="flush-collapseThirteen">
+                    POST /cards request
+                  </button>
+                </h2>
+                <div id="flush-collapseThirteen" class="accordion-collapse collapse" aria-labelledby="flush-headingThirteen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['piReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['piRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFourteen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFourteen" aria-expanded="false" aria-controls="flush-collapseFourteen">
+                    POST /cards response
+                  </button>
+                </h2>
+                <div id="flush-collapseFourteen" class="accordion-collapse collapse" aria-labelledby="flush-headingFourteen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['piRes'] }}</code>
                     </pre>
                   </div>
                 </div>
