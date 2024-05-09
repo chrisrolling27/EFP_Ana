@@ -25,6 +25,7 @@ def get_key():
   }
 
   print("/publicKey request:\n" + str(url))
+  session['keyReq'] = True
 
   response = requests.get(url, headers = headers, auth=basic)
 
@@ -40,6 +41,7 @@ def get_key():
     print(reason)
     return reason
   if response.status_code == 200:
+    session['keyRes'] = json.dumps(node, indent=2)
     print(key)
     return key
   else:
@@ -64,6 +66,7 @@ def reveal_pan(card_id, encrypted_aes):
   }
 
   print("/reveal request:\n" + str(payload))
+  session['revealReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers, auth=basic)
 
@@ -73,6 +76,7 @@ def reveal_pan(card_id, encrypted_aes):
   card_encrypted = node['encryptedData']
   print(card_encrypted)
   if response.status_code == 200:
+    session['revealRes'] = json.dumps(node, indent=2)
     return card_encrypted
   else:
     return response.text

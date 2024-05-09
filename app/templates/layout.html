@@ -28,7 +28,7 @@
       <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <h5 class="col-md-3 col-lg-8 me-0 pt-3">{{ 'Dashboard' if request.path == url_for('dashboard') }}{{ 'Profile' if request.path == url_for('onboard_success') }}{{ 'Cards' if request.path == url_for('cards_view') }}</h5>
+      <h5 class="col-md-3 col-lg-8 me-0 pt-3">{{ 'Dashboard' if request.path == url_for('dashboard') }}{{ 'Profile' if request.path == url_for('onboard_success') }}{{ 'Cards' if request.path == url_for('cards_view') }}{{ 'Profile' if request.path == url_for('profile') }}</h5>
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
           <a class="nav-link px-3" href="#"><span data-feather="help-circle" class="align-text-bottom"></span><span data-feather="bell" class="align-text-bottom"></span></a>
@@ -63,7 +63,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ 'active' if request.path == url_for('onboard_success') }}" href="{{ url_for('onboard_success')}}?LEMid={{ request.args['LEMid'] }}">
+            <a class="nav-link {{ 'active' if request.path == url_for('profile') }}" href="{{ url_for('profile')}}?LEMid={{ request.args['LEMid'] }}">
               <span data-feather="user" class="align-text-bottom"></span>
               Profile
             </a>
@@ -77,7 +77,7 @@
         </ul>
         <footer class="fixed-bottom col-md-3 col-lg-2 nav-menu-footer">
           <section class="nav-footer-switcher">
-            <button class="btn btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" role="button">API Calls</button>
+            <button class="btn btn-dark btn-sm api-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" role="button">API Calls</button>
             <!-- <div class="form-check form-switch">
               <label class="form-check-label theme-switcher-label" for="flexSwitchCheckDefault">Dev</label>
               <input class="form-check-input theme-switch" type="checkbox" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" role="switch" id="flexSwitchCheckDefault">
@@ -319,6 +319,150 @@
                   <div class="accordion-body">
                     <pre id="json" class="adl-code-sample">
                       <code id="json" class="adl-code-sample__code-block language-json">{{ session['piRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['pmReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFifteen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFifteen" aria-expanded="false" aria-controls="flush-collapseFifteen">
+                    POST /paymentMethodSettings request
+                  </button>
+                </h2>
+                <div id="flush-collapseFifteen" class="accordion-collapse collapse" aria-labelledby="flush-headingFifteen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['pmReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['pmRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSixteen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSixteen" aria-expanded="false" aria-controls="flush-collapseSixteen">
+                    POST /paymentMethodSettings response
+                  </button>
+                </h2>
+                <div id="flush-collapseSixteen" class="accordion-collapse collapse" aria-labelledby="flush-headingSixteen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['pmRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['pmReq2'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSeventeen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeventeen" aria-expanded="false" aria-controls="flush-collapseSeventeen">
+                    POST /paymentMethodSettings request
+                  </button>
+                </h2>
+                <div id="flush-collapseSeventeen" class="accordion-collapse collapse" aria-labelledby="flush-headingSeventeen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['pmReq2'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['pmRes2'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingEighteen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEighteen" aria-expanded="false" aria-controls="flush-collapseEighteen">
+                    POST /paymentMethodSettings response
+                  </button>
+                </h2>
+                <div id="flush-collapseEighteen" class="accordion-collapse collapse" aria-labelledby="flush-headingEighteen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['pmRes2'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['pmReq3'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingNineteen">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNineteen" aria-expanded="false" aria-controls="flush-collapseNineteen">
+                    POST /paymentMethodSettings request
+                  </button>
+                </h2>
+                <div id="flush-collapseNineteen" class="accordion-collapse collapse" aria-labelledby="flush-headingNineteen" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['pmReq3'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['pmRes3'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwenty">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwenty" aria-expanded="false" aria-controls="flush-collapseTwenty">
+                    POST /paymentMethodSettings response
+                  </button>
+                </h2>
+                <div id="flush-collapseTwenty" class="accordion-collapse collapse" aria-labelledby="flush-headingTwenty" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['pmRes3'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['keyRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwentyOne">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwentyOne" aria-expanded="false" aria-controls="flush-collapseTwentyOne">
+                    GET /publicKey?purpose=panReveal response
+                  </button>
+                </h2>
+                <div id="flush-collapseTwentyOne" class="accordion-collapse collapse" aria-labelledby="flush-headingTwentyOne" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['keyRes'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['revealReq'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwentyTwo">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwentyTwo" aria-expanded="false" aria-controls="flush-collapseTwentyTwo">
+                    POST /paymentInstruments/reveal request
+                  </button>
+                </h2>
+                <div id="flush-collapseTwentyTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwentyTwo" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['revealReq'] }}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if session['revealRes'] %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwentyThree">
+                  <button class="accordion-button adl-accordion__title collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwentyThree" aria-expanded="false" aria-controls="flush-collapseTwentyThree">
+                    POST /paymentInstruments/reveal response
+                  </button>
+                </h2>
+                <div id="flush-collapseTwentyThree" class="accordion-collapse collapse" aria-labelledby="flush-headingTwentyThree" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <pre id="json" class="adl-code-sample">
+                      <code id="json" class="adl-code-sample__code-block language-json">{{ session['revealRes'] }}</code>
                     </pre>
                   </div>
                 </div>

@@ -105,7 +105,12 @@ def payment_method(scheme, businessLine, storeId, currencies, countries):
 }
 
   print("/paymentMethodSettings request:\n" + str(payload))
-  session['pmReq'] = json.dumps(payload, indent=2)
+  if 'pmReq2' in session:
+    session['pmReq3'] = json.dumps(payload, indent=2)
+  if 'pmReq' in session:
+    session['pmReq2'] = json.dumps(payload, indent=2)
+  else: 
+    session['pmReq'] = json.dumps(payload, indent=2)
 
   response = requests.post(url, data = json.dumps(payload), headers = headers)
 
@@ -114,8 +119,15 @@ def payment_method(scheme, businessLine, storeId, currencies, countries):
   node = json.loads(response.text)
   print(response.headers)
   if response.status_code == 200:
-    session['pmRes'] = json.dumps(node, indent=2)
-    return response.text
+      if 'pmRes2' in session:
+        session['pmRes3'] = json.dumps(node, indent=2)
+        return response.text
+      if 'pmRes' in session:
+        session['pmRes2'] = json.dumps(node, indent=2)
+        return response.text
+      else:  
+        session['pmRes'] = json.dumps(node, indent=2)
+        return response.text
   else:
     return response.text
 

@@ -19,6 +19,7 @@ from main.store import *
 from main.business import *
 from main.card import *
 from main.reveal import *
+from main.fund import *
 
 legalName =""
 
@@ -45,6 +46,11 @@ def create_app():
     @app.route('/login')
     def login():
         return render_template('login.html')
+
+    @app.route('/clear')
+    def clear_session():
+        session.clear()
+        return render_template('login.html')
     
     @app.route('/registerForm')
     def registerForm():
@@ -67,6 +73,8 @@ def create_app():
             # get location from redirect response
             location = redirect_response.location
 
+            session['email'] = email
+            session['legalName'] = legalName
 
             # if creation was successful, extract LEM ID
             if "/result/success?LEMid=" in location:
@@ -96,8 +104,10 @@ def create_app():
             return render_template('login.html', userError=True)
         else:
             # success! get the lem ID of the logged user
-            lem = loginData
-            return render_template('onboard-success.html', lem=lem)
+            print(loginData)
+            LEMid = loginData
+            session['email'] = email
+            return redirect(url_for('dashboard', LEMid=LEMid))
 
     @app.route('/getStores', methods=['POST', 'GET'])
     def get_stores():
@@ -128,6 +138,14 @@ def create_app():
         print("this is the result ", result)
         res = [sub['storeName'] for sub in result ]
         return render_template('onboard-success.html', lem=lem, newUser=True, result=res)
+
+    @app.route('/profile', methods=['GET', 'POST'])
+    def profile():
+        lem = request.args['LEMid']
+        result = database.get_stores(lem)
+        print("this is the result ", result)
+        res = [sub['storeName'] for sub in result ]
+        return render_template('onboard-success.html', lem=lem, newUser=False, result=res)
 
     @app.route('/dashboard', methods=['GET', 'POST'])
     def dashboard():
@@ -349,6 +367,26 @@ def create_app():
             card_array.append(each_card)
             card_data = card_array
         return card_data
+
+    @app.route('/fund/<lem>', methods=['POST'])
+    def your_bank(lem):
+        lem = lem
+        return render_template('yourbank.html', lem=lem)
+
+    @app.route('/funding/<lem>', methods=['POST'])
+    def fund_card(lem):
+        lem = lem
+        # lem = request.args['LEMid']
+        # get balance account ID from database
+        balance_account = database.get_ba(lem)
+        print(balance_account)
+
+        # get variables from form
+        amount = request.form['amount']
+        currency = request.form['currency']
+
+        redirect_response = funding(balance_account, amount, currency)
+        return redirect(url_for('cards_view', LEMid=lem))
 
     @app.route('/result/failed', methods=['GET'])
     def checkout_failure():

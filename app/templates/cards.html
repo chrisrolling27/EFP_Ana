@@ -42,9 +42,18 @@
                               <div class="tab-content pt-2">
                                   <div class="row">
                                 <div class="col" id="card-overview">
-                                      <div class="d-flex flex-column align-items-end">
-                                        <button type="submit" class="btn btn-outline-dark ml-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                              <span data-feather="plus" class="align-text-centre"></span>Create new card</button>
+                                      <div class="d-flex flex-column flex-row-reverse">
+                                        <button type="submit" class="btn btn-outline-dark m-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                          <span data-feather="plus" class="align-text-centre"></span>Create new card</button>
+                                          <form action="/fund/{{lem}}" method="POST">
+                                            <div class="col-12">
+                                                <button type="submit" formtarget=”_blank” class="btn btn-outline-dark m-1">
+                                                  <span data-feather="plus" class="align-text-centre"></span>Add Funds</button>
+                                                </button>
+                                            </div>
+                                          </form>
+                                        <!-- <button type="submit" class="btn btn-outline-dark m-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                          <span data-feather="plus" class="align-text-centre"></span>Add Funds</button> -->
                                       </div>
                                       <!-- Slider main container -->
                                         <div class="swiper mySwiper">
@@ -52,7 +61,7 @@
                                             <!-- Additional required wrapper -->
                                             {% if card_data == 'no_cards' %}
                                               <div class="card-wrapper">
-                                                <div class="creditCard in-wrap dimmed mx-4">
+                                                <div class="border border-secondary creditCard in-wrap dimmed mx-4">
                                                 <div class="row mx-3">
                                                   <div class="chipLogo col-6 d-flex justify-content-start">
                                                     <img class="card-logo" alt="banana image" src=""/>
@@ -83,7 +92,7 @@
                                             <!-- Slides -->
                                             {% if card_data[0] %}
                                             <div class="swiper-slide">
-                                              <div class="creditCard in-wrap mx-4">
+                                              <div class="border border-secondary creditCard in-wrap mx-4">
                                                 <div class="row mx-3">
                                                   <div class="chipLogo col-6 d-flex justify-content-start">
                                                     <img class="card-logo" alt="banana image" src=""/>
@@ -450,10 +459,6 @@
         }
     </script>
   <script>
-    feather.replace()
-    const urlParams = new URLSearchParams(window.location.search);
-    const url_lem = urlParams.get('LEMid');
-    console.log(url_lem)
 
     function showForm() {
       let div = document.getElementById('newStoreForm').style.display

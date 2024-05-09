@@ -240,4 +240,9 @@ def get_stores(lem_id):
             conn.close()
             print("The SQLite connection is closed")
 
-
+# function to insert tx history 
+def insert_tx(transfer_id, amount, date, balance_account):
+    sql_create_table = """CREATE TABLE IF NOT EXISTS transfers(transfer_id PRIMARY KEY, amount NOT NULL, date NOT NULL, balance_account NOT NULL);"""
+    _execute_sql(sql_create_table, False)
+    sql_insert_tx = "INSERT INTO transfers VALUES ('" + transfer_id + "', '" + amount + "', '" + date + "', '" + balance_account + "');"
+    _execute_sql(sql_insert_tx, False)

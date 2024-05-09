@@ -11,12 +11,22 @@
   --image-2: url(/static/img/cover5.png);
   --image-3: url(/static/img/favicon-tacos-white.svg);
   --adyen-demo: url(/static/img/wdemo.png);
+  --bank-logo: url(/static/img/yourbank.png);
+  --bank-icon: url(/static/img/ob.png);
 }
 
 .navbar-logo{
   content: var(--image-3);
   max-height: 37px;
   padding-right: 7px;
+}
+
+.bank-icon {
+  content: var(--bank-icon);
+}
+
+.bank-logo {
+  content: var(--bank-logo);
 }
 
 .brand-logo {
@@ -216,8 +226,8 @@ body {
   }
 
   .form-check-input:checked {
-    background-color: #FFC600;
-    border-color: #FFC600;
+    background-color: var(--color-1);
+    border-color: var(--color-1);
   }
 
   .border-left-warning {
@@ -271,6 +281,7 @@ body {
 /*--------------------------------------------------------------
 # Profie Page
 --------------------------------------------------------------*/
+
 .profile .profile-card img {
 	max-width: 120px;
   }
@@ -278,7 +289,7 @@ body {
   .profile .profile-card h2 {
 	font-size: 24px;
 	font-weight: 700;
-	color: #7D6608;
+	color: var(--color-1);
 	margin: 10px 0 0 0;
   }
   
@@ -296,7 +307,7 @@ body {
   }
   
   .profile .profile-card .social-links a:hover {
-	color: #B7950B;
+	color: var(--color-1);
   }
   
   .profile .profile-overview .row {
@@ -305,17 +316,17 @@ body {
   }
   
   .profile .profile-overview .card-title {
-	color: #7D6608;
+	color: var(--color-1);
   }
   
   .profile .profile-overview .label {
 	font-weight: 600;
-	color: #7D6608;
+	color: var(--color-1);
   }
   
   .profile .profile-edit label {
 	font-weight: 600;
-	color: #7D6608;
+	color: var(--color-1);
   }
   
   .profile .profile-edit img {
@@ -582,7 +593,7 @@ overflow: visible !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 18px;
+  border-radius: 8px;
   font-size: 22px;
   font-weight: bold;
   color: #fff;
@@ -833,6 +844,16 @@ overflow: visible !important;
   --bs-accordion-active-bg: white;
 }
 
-/* .api-btn {
-  --bs-btn-hover-bg: black;
+ /* .api-btn {
+  --bs-btn-hover-bg: var(--color-1) !important;
+  --bs-btn-active-color: var(--color-1) !important;
+  --bs-btn-active-bg: var(--color-1) !important;
+  --bs-btn-hover-color: var(--color-1) !important;
 } */
+
+.api-btn:hover, .api-btn:focus, .api-btn:active {
+  color: #fff;
+  background-color: var(--color-1);
+  border-color: var(--color-1); /*set the color you want here*/
+  border-radius: 4px;
+}
