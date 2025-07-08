@@ -288,7 +288,6 @@ def create_app():
 
             return redirect_response
 
-
     @app.route('/issue/<lem>', methods=['POST'])
     def new_card(lem):
         if request.method == 'POST':
@@ -296,7 +295,7 @@ def create_app():
             result = database.get_le(lem)
             print(result[0])
             print(result[1])
-            country = result[1]
+            country = "US"
 
             # get balance account ID from database
             balance_account = database.get_ba(lem)
@@ -304,17 +303,14 @@ def create_app():
 
             # get variables from UI request
             card_holder = request.form['cardHolderName']
-            scheme = request.form['cardScheme']
-            factor = request.form['cardType']
+            scheme = 'visa'
+            factor = 'virtual'
             phone = request.form['phone']
             print(scheme)
-            if factor == 'Virtual':
-                factor = 'virtual'
-                print("I reach virtual")
-            if scheme == 'mc': 
-                brand = 'mc'
-                print("I reach mc")
-                variant = 'mc_debit_mdt'
+            
+            if scheme == 'visa': 
+                brand = 'visa'
+                variant = 'visa_credit_g'
                 # create payment instrument with all data
                 redirect_response = create_card(balance_account, brand, variant, card_holder, country, factor, lem, phone)
                 print(redirect_response)
