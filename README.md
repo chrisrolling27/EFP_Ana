@@ -1,4 +1,6 @@
 # AFP Onboarding demo
+source ./setup.sh
+./start.sh
 
 ## Details
 
